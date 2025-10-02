@@ -4,6 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   initColorSettings()
   initNavigation()
+  initScanWave()
 })
 
 // Color Settings Management
@@ -113,4 +114,10 @@ function initNavigation() {
       link.classList.add("active")
     }
   })
+}
+
+function initScanWave() {
+  const scanWave = document.createElement("div")
+  scanWave.className = "scan-wave"
+  document.body.appendChild(scanWave)
 }
