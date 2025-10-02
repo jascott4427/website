@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pip-Boy Portfolio - Hobbies</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+     Header 
+    <header class="header">
+      <div class="header-top">
+        <div>
+          <div class="header-title">PIP-BOY 3000 MARK IV</div>
+          <div class="header-subtitle">[PERSONAL INFORMATION PROCESSOR]</div>
+        </div>
+        <div class="header-right">
+          <button id="settings-btn" class="settings-btn">⚙ SETTINGS</button>
+          <div class="hp-display">
+            <div>HP:</div>
+            <div class="hp-bars">
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Settings Panel 
+      <div id="settings-panel" class="settings-panel">
+        <h3 class="settings-title">COLOR SETTINGS</h3>
+        
+        <div class="color-controls">
+          <div class="color-control">
+            <label>Background Color</label>
+            <div class="color-input-group">
+              <input type="color" id="bg-color" value="#1a3a1a">
+              <input type="text" id="bg-color-text" value="#1a3a1a">
+            </div>
+          </div>
+          
+          <div class="color-control">
+            <label>Border/Text Color</label>
+            <div class="color-input-group">
+              <input type="color" id="border-color" value="#4ade80">
+              <input type="text" id="border-color-text" value="#4ade80">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="presets-label">Presets</div>
+          <div class="presets">
+            <button class="preset-btn" data-bg="#1a3a1a" data-border="#4ade80" style="border-color: #4ade80; color: #4ade80; background-color: rgba(26, 58, 26, 0.5);">Classic Green</button>
+            <button class="preset-btn" data-bg="#2a1a0a" data-border="#fbbf24" style="border-color: #fbbf24; color: #fbbf24; background-color: rgba(42, 26, 10, 0.5);">Amber</button>
+            <button class="preset-btn" data-bg="#0a1a2a" data-border="#60a5fa" style="border-color: #60a5fa; color: #60a5fa; background-color: rgba(10, 26, 42, 0.5);">Blue</button>
+            <button class="preset-btn" data-bg="#2a0a0a" data-border="#f87171" style="border-color: #f87171; color: #f87171; background-color: rgba(42, 10, 10, 0.5);">Red</button>
+            <button class="preset-btn" data-bg="#1a0a2a" data-border="#c084fc" style="border-color: #c084fc; color: #c084fc; background-color: rgba(26, 10, 42, 0.5);">Purple</button>
+          </div>
+        </div>
+      </div>
+
+       Navigation 
+      <nav class="nav">
+        <a href="index.html" class="nav-link"><span>◆</span> HOME</a>
+        <a href="projects.html" class="nav-link"><span>▣</span> PROJECTS</a>
+        <a href="hobbies.html" class="nav-link"><span>♦</span> HOBBIES</a>
+        <a href="gamedev.html" class="nav-link"><span>▲</span> GAMEDEV</a>
+        <a href="resume.html" class="nav-link"><span>■</span> RESUME</a>
+      </nav>
+    </header>
+
+     Main Content 
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-subtitle">&gt; ACCESSING RECREATIONAL DATA...</div>
+        <h1 class="page-title">[HOBBIES & INTERESTS]</h1>
+        <div class="page-meta">LIFE OUTSIDE THE CODE // WASTELAND ACTIVITIES</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">[PRIMARY HOBBIES]</div>
+        <div class="grid grid-2">
+           Hobby 1 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">♠</div>
+              <div class="hobby-info">
+                <div class="hobby-name">WASTELAND EXPLORATION</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Discovering pre-war ruins and collecting artifacts. Mapping uncharted territories and documenting findings.</p>
+          </div>
+
+           Hobby 2 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">♣</div>
+              <div class="hobby-info">
+                <div class="hobby-name">TERMINAL HACKING</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Bypassing security systems and recovering lost data from abandoned facilities. Specializing in RobCo terminals.</p>
+          </div>
+
+           Hobby 3 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">♥</div>
+              <div class="hobby-info">
+                <div class="hobby-name">WEAPON MODIFICATION</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Crafting and upgrading firearms with custom attachments. Experimenting with energy weapon conversions.</p>
+          </div>
+
+           Hobby 4 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">♦</div>
+              <div class="hobby-info">
+                <div class="hobby-name">SETTLEMENT BUILDING</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Designing and constructing fortified settlements. Optimizing resource production and defense systems.</p>
+          </div>
+
+           Hobby 5 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">◆</div>
+              <div class="hobby-info">
+                <div class="hobby-name">RADIO BROADCASTING</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Operating Radio Freedom. Curating playlists of pre-war music and broadcasting news across the Commonwealth.</p>
+          </div>
+
+           Hobby 6 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">▲</div>
+              <div class="hobby-info">
+                <div class="hobby-name">COOKING & CHEMISTRY</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Preparing wasteland cuisine and brewing chems. Experimenting with new recipes and radiation-free ingredients.</p>
+          </div>
+
+           Hobby 7 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">▼</div>
+              <div class="hobby-info">
+                <div class="hobby-name">POWER ARMOR MAINTENANCE</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Repairing and customizing power armor suits. Collecting fusion cores and rare armor modifications.</p>
+          </div>
+
+           Hobby 8 
+          <div class="hobby-card">
+            <div class="hobby-header">
+              <div class="hobby-icon">●</div>
+              <div class="hobby-info">
+                <div class="hobby-name">PHOTOGRAPHY</div>
+                <div class="hobby-level">
+                  <span>SKILL LEVEL:</span>
+                  <div class="level-bars">
+                    <span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span><span class="level-bar filled">▮</span>
+                    <span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span><span class="level-bar">▮</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="hobby-description">Documenting life in the wasteland through photography. Capturing moments of beauty in the post-apocalypse.</p>
+          </div>
+        </div>
+      </div>
+
+       Interests 
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="section-title">[AREAS OF INTEREST]</div>
+        <div class="grid grid-2">
+          <div class="list-item"><span class="list-icon">▸</span><span>Pre-war technology restoration</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Vault-Tec history and lore</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Robotics and AI development</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Wasteland survival tactics</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Energy weapon research</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Post-apocalyptic architecture</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Radio communication systems</span></div>
+          <div class="list-item"><span class="list-icon">▸</span><span>Nuka-Cola collecting</span></div>
+        </div>
+      </div>
+
+       Achievements 
+      <div class="card">
+        <div class="section-title">[WASTELAND ACHIEVEMENTS]</div>
+        <div style="font-size: 0.875rem; line-height: 1.8;">
+          <p>&gt; Discovered 47 unique locations across the Commonwealth</p>
+          <p>&gt; Successfully hacked 200+ terminals without triggering lockouts</p>
+          <p>&gt; Built and maintained 12 thriving settlements</p>
+          <p>&gt; Collected complete set of Nuka-Cola variants (including Quantum!)</p>
+          <p>&gt; Survived 3 rad storms without RadAway</p>
+          <p>&gt; Restored 5 suits of T-60 power armor to full functionality</p>
+        </div>
+      </div>
+    </main>
+
+     Footer 
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-stats">
+          <span>RAD: 0</span>
+          <span>LEVEL: 99</span>
+          <span>XP: ∞</span>
+        </div>
+        <div class="footer-copyright">© 2077 ROBCO INDUSTRIES</div>
+        <div class="ap-display">
+          <span>AP:</span>
+          <div class="ap-bars">
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

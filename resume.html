@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pip-Boy Portfolio - Resume</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+     Header 
+    <header class="header">
+      <div class="header-top">
+        <div>
+          <div class="header-title">PIP-BOY 3000 MARK IV</div>
+          <div class="header-subtitle">[PERSONAL INFORMATION PROCESSOR]</div>
+        </div>
+        <div class="header-right">
+          <button id="settings-btn" class="settings-btn">⚙ SETTINGS</button>
+          <div class="hp-display">
+            <div>HP:</div>
+            <div class="hp-bars">
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Settings Panel 
+      <div id="settings-panel" class="settings-panel">
+        <h3 class="settings-title">COLOR SETTINGS</h3>
+        
+        <div class="color-controls">
+          <div class="color-control">
+            <label>Background Color</label>
+            <div class="color-input-group">
+              <input type="color" id="bg-color" value="#1a3a1a">
+              <input type="text" id="bg-color-text" value="#1a3a1a">
+            </div>
+          </div>
+          
+          <div class="color-control">
+            <label>Border/Text Color</label>
+            <div class="color-input-group">
+              <input type="color" id="border-color" value="#4ade80">
+              <input type="text" id="border-color-text" value="#4ade80">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="presets-label">Presets</div>
+          <div class="presets">
+            <button class="preset-btn" data-bg="#1a3a1a" data-border="#4ade80" style="border-color: #4ade80; color: #4ade80; background-color: rgba(26, 58, 26, 0.5);">Classic Green</button>
+            <button class="preset-btn" data-bg="#2a1a0a" data-border="#fbbf24" style="border-color: #fbbf24; color: #fbbf24; background-color: rgba(42, 26, 10, 0.5);">Amber</button>
+            <button class="preset-btn" data-bg="#0a1a2a" data-border="#60a5fa" style="border-color: #60a5fa; color: #60a5fa; background-color: rgba(10, 26, 42, 0.5);">Blue</button>
+            <button class="preset-btn" data-bg="#2a0a0a" data-border="#f87171" style="border-color: #f87171; color: #f87171; background-color: rgba(42, 10, 10, 0.5);">Red</button>
+            <button class="preset-btn" data-bg="#1a0a2a" data-border="#c084fc" style="border-color: #c084fc; color: #c084fc; background-color: rgba(26, 10, 42, 0.5);">Purple</button>
+          </div>
+        </div>
+      </div>
+
+       Navigation 
+      <nav class="nav">
+        <a href="index.html" class="nav-link"><span>◆</span> HOME</a>
+        <a href="projects.html" class="nav-link"><span>▣</span> PROJECTS</a>
+        <a href="hobbies.html" class="nav-link"><span>♦</span> HOBBIES</a>
+        <a href="gamedev.html" class="nav-link"><span>▲</span> GAMEDEV</a>
+        <a href="resume.html" class="nav-link"><span>■</span> RESUME</a>
+      </nav>
+    </header>
+
+     Main Content 
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-subtitle">&gt; LOADING PERSONNEL FILE...</div>
+        <h1 class="page-title">[RESUME]</h1>
+        <div class="page-meta">PROFESSIONAL EXPERIENCE // SKILLS // EDUCATION</div>
+      </div>
+
+       Contact Info 
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="section-title">[CONTACT INFORMATION]</div>
+        <div class="contact-grid">
+          <div>
+            <div class="contact-item-label">EMAIL:</div>
+            <div>vault.dweller@wasteland.com</div>
+          </div>
+          <div>
+            <div class="contact-item-label">LOCATION:</div>
+            <div>The Commonwealth, Wasteland</div>
+          </div>
+          <div>
+            <div class="contact-item-label">GITHUB:</div>
+            <div>github.com/vaultdweller</div>
+          </div>
+          <div>
+            <div class="contact-item-label">PORTFOLIO:</div>
+            <div>wasteland-dev.com</div>
+          </div>
+        </div>
+      </div>
+
+       Experience 
+      <div class="section">
+        <div class="section-title">[WORK EXPERIENCE]</div>
+        
+         Job 1 
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">SENIOR WASTELAND ENGINEER</h3>
+              <div class="experience-company">VAULT-TEC INDUSTRIES</div>
+            </div>
+            <div class="experience-year">2075 - PRESENT</div>
+          </div>
+          <p class="experience-description">
+            Lead development of critical infrastructure systems. Manage team of 5 engineers. Reduced system downtime by 60%.
+          </p>
+          <ul class="achievements">
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Architected new settlement management platform</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Implemented real-time communication system</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Optimized resource allocation algorithms</span></li>
+          </ul>
+        </div>
+
+         Job 2 
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">FULL-STACK DEVELOPER</h3>
+              <div class="experience-company">BROTHERHOOD OF STEEL</div>
+            </div>
+            <div class="experience-year">2073 - 2075</div>
+          </div>
+          <p class="experience-description">
+            Built secure database systems for technology tracking. Developed mobile applications for field operations.
+          </p>
+          <ul class="achievements">
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Created encrypted data transmission protocol</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Developed cross-platform mobile app</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Integrated biometric authentication</span></li>
+          </ul>
+        </div>
+
+         Job 3 
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">FRONTEND ENGINEER</h3>
+              <div class="experience-company">DIAMOND CITY TECH</div>
+            </div>
+            <div class="experience-year">2071 - 2073</div>
+          </div>
+          <p class="experience-description">
+            Designed and implemented user interfaces for trading platforms. Collaborated with designers and backend teams.
+          </p>
+          <ul class="achievements">
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Rebuilt UI with modern framework</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Improved accessibility compliance to 100%</span></li>
+            <li class="achievement-item"><span class="list-icon">▸</span><span>Reduced page load times by 45%</span></li>
+          </ul>
+        </div>
+      </div>
+
+       Skills 
+      <div class="section">
+        <div class="section-title">[TECHNICAL SKILLS]</div>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-category-title">PROGRAMMING:</div>
+            <div class="list">
+              <div class="list-item"><span class="list-icon">▸</span><span>JavaScript / TypeScript</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Python</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>C#</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>SQL</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>HTML / CSS</span></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-title">FRAMEWORKS:</div>
+            <div class="list">
+              <div class="list-item"><span class="list-icon">▸</span><span>React / Next.js</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Node.js</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Unity</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Godot</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Express</span></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-title">TOOLS:</div>
+            <div class="list">
+              <div class="list-item"><span class="list-icon">▸</span><span>Git / GitHub</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Docker</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Vercel</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Supabase</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Figma</span></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-title">SPECIALTIES:</div>
+            <div class="list">
+              <div class="list-item"><span class="list-icon">▸</span><span>UI/UX Design</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Accessibility</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Performance Optimization</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>Game Development</span></div>
+              <div class="list-item"><span class="list-icon">▸</span><span>API Design</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Education 
+      <div class="section">
+        <div class="section-title">[EDUCATION]</div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">BACHELOR OF SCIENCE - COMPUTER SCIENCE</h3>
+              <div class="experience-company">COMMONWEALTH INSTITUTE OF TECHNOLOGY</div>
+            </div>
+            <div class="experience-year">2067 - 2071</div>
+          </div>
+          <div style="font-size: 0.875rem;">
+            <span style="opacity: 0.7;">HONORS: </span>
+            <span>SUMMA CUM LAUDE</span>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <h3 class="experience-title">CERTIFICATION - ADVANCED TERMINAL SYSTEMS</h3>
+              <div class="experience-company">ROBCO INDUSTRIES</div>
+            </div>
+            <div class="experience-year">2072</div>
+          </div>
+          <div style="font-size: 0.875rem;">
+            <span style="opacity: 0.7;">HONORS: </span>
+            <span>DISTINCTION</span>
+          </div>
+        </div>
+      </div>
+
+       Download 
+      <div class="download-section">
+        <button class="download-btn">▼ DOWNLOAD FULL RESUME (PDF)</button>
+      </div>
+    </main>
+
+     Footer 
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-stats">
+          <span>RAD: 0</span>
+          <span>LEVEL: 99</span>
+          <span>XP: ∞</span>
+        </div>
+        <div class="footer-copyright">© 2077 ROBCO INDUSTRIES</div>
+        <div class="ap-display">
+          <span>AP:</span>
+          <div class="ap-bars">
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

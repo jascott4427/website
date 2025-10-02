@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pip-Boy Portfolio - Home</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+     Header 
+    <header class="header">
+      <div class="header-top">
+        <div>
+          <div class="header-title">PIP-BOY 3000 MARK IV</div>
+          <div class="header-subtitle">[PERSONAL INFORMATION PROCESSOR]</div>
+        </div>
+        <div class="header-right">
+          <button id="settings-btn" class="settings-btn">⚙ SETTINGS</button>
+          <div class="hp-display">
+            <div>HP:</div>
+            <div class="hp-bars">
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Settings Panel 
+      <div id="settings-panel" class="settings-panel">
+        <h3 class="settings-title">COLOR SETTINGS</h3>
+        
+        <div class="color-controls">
+          <div class="color-control">
+            <label>Background Color</label>
+            <div class="color-input-group">
+              <input type="color" id="bg-color" value="#1a3a1a">
+              <input type="text" id="bg-color-text" value="#1a3a1a">
+            </div>
+          </div>
+          
+          <div class="color-control">
+            <label>Border/Text Color</label>
+            <div class="color-input-group">
+              <input type="color" id="border-color" value="#4ade80">
+              <input type="text" id="border-color-text" value="#4ade80">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="presets-label">Presets</div>
+          <div class="presets">
+            <button class="preset-btn" data-bg="#1a3a1a" data-border="#4ade80" style="border-color: #4ade80; color: #4ade80; background-color: rgba(26, 58, 26, 0.5);">Classic Green</button>
+            <button class="preset-btn" data-bg="#2a1a0a" data-border="#fbbf24" style="border-color: #fbbf24; color: #fbbf24; background-color: rgba(42, 26, 10, 0.5);">Amber</button>
+            <button class="preset-btn" data-bg="#0a1a2a" data-border="#60a5fa" style="border-color: #60a5fa; color: #60a5fa; background-color: rgba(10, 26, 42, 0.5);">Blue</button>
+            <button class="preset-btn" data-bg="#2a0a0a" data-border="#f87171" style="border-color: #f87171; color: #f87171; background-color: rgba(42, 10, 10, 0.5);">Red</button>
+            <button class="preset-btn" data-bg="#1a0a2a" data-border="#c084fc" style="border-color: #c084fc; color: #c084fc; background-color: rgba(26, 10, 42, 0.5);">Purple</button>
+          </div>
+        </div>
+      </div>
+
+       Navigation 
+      <nav class="nav">
+        <a href="index.html" class="nav-link"><span>◆</span> HOME</a>
+        <a href="projects.html" class="nav-link"><span>▣</span> PROJECTS</a>
+        <a href="hobbies.html" class="nav-link"><span>♦</span> HOBBIES</a>
+        <a href="gamedev.html" class="nav-link"><span>▲</span> GAMEDEV</a>
+        <a href="resume.html" class="nav-link"><span>■</span> RESUME</a>
+      </nav>
+    </header>
+
+     Main Content 
+    <main class="main-content">
+       Terminal Header 
+      <div class="page-header">
+        <div class="page-header-subtitle">&gt; ACCESSING PERSONAL DATA...</div>
+        <h1 class="page-title">VAULT DWELLER</h1>
+        <div class="page-meta">SOFTWARE ENGINEER // WASTELAND SURVIVOR</div>
+      </div>
+
+       Stats Display 
+      <div class="grid grid-2" style="margin-bottom: 2rem;">
+        <div class="card">
+          <div class="section-title">[S.P.E.C.I.A.L.]</div>
+          <div style="font-size: 0.875rem;">
+            <div class="stat-row">
+              <span>STRENGTH:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▯▯▯</span>
+            </div>
+            <div class="stat-row">
+              <span>PERCEPTION:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▮▯▯</span>
+            </div>
+            <div class="stat-row">
+              <span>ENDURANCE:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▯▯▯</span>
+            </div>
+            <div class="stat-row">
+              <span>CHARISMA:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▮▮▯</span>
+            </div>
+            <div class="stat-row">
+              <span>INTELLIGENCE:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▮▮▮</span>
+            </div>
+            <div class="stat-row">
+              <span>AGILITY:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▮▯▯</span>
+            </div>
+            <div class="stat-row">
+              <span>LUCK:</span>
+              <span class="stat-bars">▮▮▮▮▮▮▮▯▯▯</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">[STATUS]</div>
+          <div style="font-size: 0.875rem; line-height: 1.8;">
+            <p>&gt; OCCUPATION: Full-Stack Developer</p>
+            <p>&gt; SPECIALIZATION: React, Next.js, TypeScript</p>
+            <p>&gt; LOCATION: The Commonwealth</p>
+            <p>&gt; MISSION: Building pixel-perfect interfaces for the wasteland</p>
+          </div>
+        </div>
+      </div>
+
+       Bio Section 
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="section-title">[PERSONAL LOG]</div>
+        <div style="font-size: 0.875rem; line-height: 1.8;">
+          <p style="margin-bottom: 1rem;">
+            &gt; Day 2,847: Another successful deployment to the wasteland. The settlers are pleased with the new
+            trading interface I built. Performance optimizations reduced load times by 40%.
+          </p>
+          <p style="margin-bottom: 1rem;">
+            &gt; I specialize in crafting accessible, pixel-perfect digital experiences that blend thoughtful design
+            with robust engineering. My favorite work lies at the intersection of design and development, creating
+            experiences that not only look great but are meticulously built for performance and usability.
+          </p>
+          <p>
+            &gt; When I'm not coding, you'll find me exploring the wasteland, collecting bottle caps, and occasionally
+            fighting off radroaches. The post-apocalyptic life of a developer is never boring.
+          </p>
+        </div>
+      </div>
+
+       Quick Links 
+      <div class="quick-links">
+        <a href="projects.html" class="quick-link">
+          <div class="quick-link-icon">▣</div>
+          <div class="quick-link-text">VIEW PROJECTS</div>
+        </a>
+        <a href="hobbies.html" class="quick-link">
+          <div class="quick-link-icon">♦</div>
+          <div class="quick-link-text">HOBBIES</div>
+        </a>
+        <a href="gamedev.html" class="quick-link">
+          <div class="quick-link-icon">▲</div>
+          <div class="quick-link-text">GAME DEV</div>
+        </a>
+        <a href="resume.html" class="quick-link">
+          <div class="quick-link-icon">■</div>
+          <div class="quick-link-text">RESUME</div>
+        </a>
+      </div>
+    </main>
+
+     Footer 
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-stats">
+          <span>RAD: 0</span>
+          <span>LEVEL: 99</span>
+          <span>XP: ∞</span>
+        </div>
+        <div class="footer-copyright">© 2077 ROBCO INDUSTRIES</div>
+        <div class="ap-display">
+          <span>AP:</span>
+          <div class="ap-bars">
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

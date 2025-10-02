@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pip-Boy Portfolio - Game Dev</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+     Header 
+    <header class="header">
+      <div class="header-top">
+        <div>
+          <div class="header-title">PIP-BOY 3000 MARK IV</div>
+          <div class="header-subtitle">[PERSONAL INFORMATION PROCESSOR]</div>
+        </div>
+        <div class="header-right">
+          <button id="settings-btn" class="settings-btn">⚙ SETTINGS</button>
+          <div class="hp-display">
+            <div>HP:</div>
+            <div class="hp-bars">
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+              <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Settings Panel 
+      <div id="settings-panel" class="settings-panel">
+        <h3 class="settings-title">COLOR SETTINGS</h3>
+        
+        <div class="color-controls">
+          <div class="color-control">
+            <label>Background Color</label>
+            <div class="color-input-group">
+              <input type="color" id="bg-color" value="#1a3a1a">
+              <input type="text" id="bg-color-text" value="#1a3a1a">
+            </div>
+          </div>
+          
+          <div class="color-control">
+            <label>Border/Text Color</label>
+            <div class="color-input-group">
+              <input type="color" id="border-color" value="#4ade80">
+              <input type="text" id="border-color-text" value="#4ade80">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="presets-label">Presets</div>
+          <div class="presets">
+            <button class="preset-btn" data-bg="#1a3a1a" data-border="#4ade80" style="border-color: #4ade80; color: #4ade80; background-color: rgba(26, 58, 26, 0.5);">Classic Green</button>
+            <button class="preset-btn" data-bg="#2a1a0a" data-border="#fbbf24" style="border-color: #fbbf24; color: #fbbf24; background-color: rgba(42, 26, 10, 0.5);">Amber</button>
+            <button class="preset-btn" data-bg="#0a1a2a" data-border="#60a5fa" style="border-color: #60a5fa; color: #60a5fa; background-color: rgba(10, 26, 42, 0.5);">Blue</button>
+            <button class="preset-btn" data-bg="#2a0a0a" data-border="#f87171" style="border-color: #f87171; color: #f87171; background-color: rgba(42, 10, 10, 0.5);">Red</button>
+            <button class="preset-btn" data-bg="#1a0a2a" data-border="#c084fc" style="border-color: #c084fc; color: #c084fc; background-color: rgba(26, 10, 42, 0.5);">Purple</button>
+          </div>
+        </div>
+      </div>
+
+       Navigation 
+      <nav class="nav">
+        <a href="index.html" class="nav-link"><span>◆</span> HOME</a>
+        <a href="projects.html" class="nav-link"><span>▣</span> PROJECTS</a>
+        <a href="hobbies.html" class="nav-link"><span>♦</span> HOBBIES</a>
+        <a href="gamedev.html" class="nav-link"><span>▲</span> GAMEDEV</a>
+        <a href="resume.html" class="nav-link"><span>■</span> RESUME</a>
+      </nav>
+    </header>
+
+     Main Content 
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-subtitle">&gt; LOADING GAME DEVELOPMENT PROJECTS...</div>
+        <h1 class="page-title">[GAME DEV PROJECTS]</h1>
+        <div class="page-meta">INTERACTIVE ENTERTAINMENT // WASTELAND EDITION</div>
+      </div>
+
+       Game Project 1 
+      <div class="project-card">
+        <div>
+          <div>
+            <span class="project-id">#GD-001</span>
+            <span class="project-name">WASTELAND TACTICS</span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">TURN-BASED STRATEGY</span>
+            <span class="tag tag-active">IN DEVELOPMENT</span>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>DEVELOPMENT PROGRESS:</span>
+            <span>65%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%;"></div>
+          </div>
+        </div>
+
+        <p class="project-description">
+          A tactical RPG set in the post-apocalyptic wasteland. Features grid-based combat, resource management, and branching storylines.
+        </p>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">TECHNOLOGY:</div>
+          <div class="tech-stack">
+            <span class="tech-tag">UNITY</span>
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">SHADER GRAPH</span>
+            <span class="tech-tag">CINEMACHINE</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">KEY FEATURES:</div>
+          <div class="grid grid-2">
+            <div class="list-item"><span class="list-icon">▸</span><span>Turn-based tactical combat system</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Procedural map generation</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Character progression & skill trees</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Dynamic weather & day/night cycle</span></div>
+          </div>
+        </div>
+      </div>
+
+       Game Project 2 
+      <div class="project-card">
+        <div>
+          <div>
+            <span class="project-id">#GD-002</span>
+            <span class="project-name">TERMINAL BREACH</span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">PUZZLE / HACKING</span>
+            <span class="tag">PROTOTYPE</span>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>DEVELOPMENT PROGRESS:</span>
+            <span>40%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%;"></div>
+          </div>
+        </div>
+
+        <p class="project-description">
+          A hacking puzzle game inspired by Fallout's terminal minigame. Players must crack passwords and bypass security systems.
+        </p>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">TECHNOLOGY:</div>
+          <div class="tech-stack">
+            <span class="tech-tag">GODOT</span>
+            <span class="tech-tag">GDSCRIPT</span>
+            <span class="tech-tag">PIXEL ART</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">KEY FEATURES:</div>
+          <div class="grid grid-2">
+            <div class="list-item"><span class="list-icon">▸</span><span>Word-matching puzzle mechanics</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Progressive difficulty system</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Retro terminal aesthetic</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Leaderboard & achievements</span></div>
+          </div>
+        </div>
+      </div>
+
+       Game Project 3 
+      <div class="project-card">
+        <div>
+          <div>
+            <span class="project-id">#GD-003</span>
+            <span class="project-name">VAULT DWELLER</span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">SURVIVAL / MANAGEMENT</span>
+            <span class="tag">CONCEPT</span>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>DEVELOPMENT PROGRESS:</span>
+            <span>15%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 15%;"></div>
+          </div>
+        </div>
+
+        <p class="project-description">
+          Manage your own vault in this survival management sim. Balance resources, keep dwellers happy, and defend against threats.
+        </p>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">TECHNOLOGY:</div>
+          <div class="tech-stack">
+            <span class="tech-tag">UNITY</span>
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">DOTween</span>
+            <span class="tech-tag">ADDRESSABLES</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">KEY FEATURES:</div>
+          <div class="grid grid-2">
+            <div class="list-item"><span class="list-icon">▸</span><span>Vault building & customization</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Dweller management & assignments</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Resource production chains</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Random event system</span></div>
+          </div>
+        </div>
+      </div>
+
+       Game Project 4 
+      <div class="project-card">
+        <div>
+          <div>
+            <span class="project-id">#GD-004</span>
+            <span class="project-name">RADROACH RAMPAGE</span>
+          </div>
+          <div class="project-tags">
+            <span class="tag">ARCADE / ACTION</span>
+            <span class="tag tag-active">COMPLETED</span>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-header">
+            <span>DEVELOPMENT PROGRESS:</span>
+            <span>100%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <p class="project-description">
+          A fast-paced arcade shooter where you defend your settlement from waves of mutated creatures. High score focused gameplay.
+        </p>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">TECHNOLOGY:</div>
+          <div class="tech-stack">
+            <span class="tech-tag">PHASER.JS</span>
+            <span class="tech-tag">TYPESCRIPT</span>
+            <span class="tech-tag">WEB AUDIO API</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; opacity: 0.7;">KEY FEATURES:</div>
+          <div class="grid grid-2">
+            <div class="list-item"><span class="list-icon">▸</span><span>Wave-based enemy spawning</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Power-up system</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Local high score tracking</span></div>
+            <div class="list-item"><span class="list-icon">▸</span><span>Retro pixel art style</span></div>
+          </div>
+        </div>
+      </div>
+
+       Stats 
+      <div class="card">
+        <div class="section-title">[DEVELOPMENT STATISTICS]</div>
+        <div class="stats-grid">
+          <div>
+            <div class="stat-value">4</div>
+            <div class="stat-label">TOTAL PROJECTS</div>
+          </div>
+          <div>
+            <div class="stat-value">1</div>
+            <div class="stat-label">COMPLETED</div>
+          </div>
+          <div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">IN DEVELOPMENT</div>
+          </div>
+          <div>
+            <div class="stat-value">5K+</div>
+            <div class="stat-label">LINES OF CODE</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+     Footer 
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-stats">
+          <span>RAD: 0</span>
+          <span>LEVEL: 99</span>
+          <span>XP: ∞</span>
+        </div>
+        <div class="footer-copyright">© 2077 ROBCO INDUSTRIES</div>
+        <div class="ap-display">
+          <span>AP:</span>
+          <div class="ap-bars">
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+            <span>▮</span><span>▮</span><span>▮</span><span>▮</span><span>▮</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
