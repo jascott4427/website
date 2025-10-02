@@ -1,0 +1,736 @@
+/* Pip-Boy Portfolio Styles */
+:root {
+  /* Default Pip-Boy colors */
+  --pipboy-bg: #1a3a1a;
+  --pipboy-border: #4ade80;
+  --pipboy-bg-custom: #1a3a1a;
+  --pipboy-border-custom: #4ade80;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: var(--pipboy-bg-custom);
+  color: var(--pipboy-border-custom);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* CRT Scanline effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* CRT flicker animation */
+@keyframes flicker {
+  0% {
+    opacity: 0.97;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.97;
+  }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 9998;
+  animation: flicker 0.15s infinite;
+}
+
+/* Text glow effect */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+/* Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+.header {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: var(--pipboy-border-custom);
+}
+
+.header-subtitle {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  color: var(--pipboy-border-custom);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--pipboy-border-custom);
+  background: transparent;
+  color: var(--pipboy-border-custom);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s;
+}
+
+.settings-btn:hover {
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.hp-display {
+  font-size: 0.875rem;
+  color: var(--pipboy-border-custom);
+}
+
+.hp-bars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Settings Panel */
+.settings-panel {
+  display: none;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--pipboy-border-custom);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.settings-panel.active {
+  display: block;
+}
+
+.settings-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--pipboy-border-custom);
+}
+
+.color-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.color-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.color-control label {
+  font-size: 0.875rem;
+  color: var(--pipboy-border-custom);
+}
+
+.color-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.color-input-group input[type="color"] {
+  width: 4rem;
+  height: 2.5rem;
+  cursor: pointer;
+  border: 1px solid var(--pipboy-border-custom);
+  background: transparent;
+}
+
+.color-input-group input[type="text"] {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--pipboy-border-custom);
+  background: transparent;
+  color: var(--pipboy-border-custom);
+  font-family: inherit;
+}
+
+.presets-label {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: var(--pipboy-border-custom);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.preset-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: opacity 0.2s;
+}
+
+.preset-btn:hover {
+  opacity: 0.8;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  text-decoration: none;
+  color: var(--pipboy-border-custom);
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.nav-link:hover {
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.nav-link.active {
+  background-color: rgba(74, 222, 128, 0.2);
+  box-shadow: 0 0 15px currentColor;
+}
+
+/* Main Content */
+.main-content {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  min-height: 600px;
+  color: var(--pipboy-border-custom);
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--pipboy-border-custom);
+}
+
+.footer-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-copyright {
+  opacity: 0.7;
+}
+
+.ap-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ap-bars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Page Specific Styles */
+.page-header {
+  border-bottom: 2px solid var(--pipboy-border-custom);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-header-subtitle {
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.page-meta {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Section */
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--pipboy-border-custom);
+}
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Card */
+.card {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s;
+}
+
+.card:hover {
+  background-color: rgba(74, 222, 128, 0.05);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Stats Display */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.stat-bars {
+  display: flex;
+  gap: 2px;
+}
+
+/* Project Card */
+.project-card {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.project-card:hover {
+  background-color: rgba(74, 222, 128, 0.05);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.project-id {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-right: 0.75rem;
+}
+
+.project-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  border: 1px solid var(--pipboy-border-custom);
+  padding: 0.25rem 0.5rem;
+}
+
+.tag-active {
+  background-color: rgba(74, 222, 128, 0.2);
+}
+
+.project-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  font-size: 0.75rem;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-bottom: 1rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+  border: 1px solid var(--pipboy-border-custom);
+  height: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--pipboy-border-custom);
+  transition: width 0.3s;
+}
+
+/* List */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.list-icon {
+  color: var(--pipboy-border-custom);
+  margin-top: 0.25rem;
+}
+
+/* Quick Links */
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.quick-link {
+  border: 1px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-decoration: none;
+  color: var(--pipboy-border-custom);
+  display: block;
+}
+
+.quick-link:hover {
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.quick-link-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.quick-link-text {
+  font-size: 0.75rem;
+}
+
+/* Hobby Card */
+.hobby-card {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s;
+}
+
+.hobby-card:hover {
+  background-color: rgba(74, 222, 128, 0.05);
+}
+
+.hobby-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.hobby-icon {
+  font-size: 2rem;
+}
+
+.hobby-info {
+  flex: 1;
+}
+
+.hobby-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.hobby-level {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.level-bars {
+  display: flex;
+  gap: 2px;
+}
+
+.level-bar {
+  opacity: 0.3;
+}
+
+.level-bar.filled {
+  opacity: 1;
+}
+
+.hobby-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Resume Styles */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.contact-item-label {
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.experience-card {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.experience-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.experience-company {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.experience-year {
+  font-size: 0.875rem;
+  border: 1px solid var(--pipboy-border-custom);
+  padding: 0.25rem 0.75rem;
+  white-space: nowrap;
+}
+
+.experience-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.achievements {
+  list-style: none;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.skill-category {
+  border: 1px solid var(--pipboy-border-custom);
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.skill-category-title {
+  font-size: 0.875rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.download-section {
+  border: 1px solid var(--pipboy-border-custom);
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.download-btn {
+  border: 2px solid var(--pipboy-border-custom);
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(74, 222, 128, 0.1);
+  color: var(--pipboy-border-custom);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.download-btn:hover {
+  background-color: var(--pipboy-border-custom);
+  color: #000;
+}
+
+/* Stats Display */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+}
