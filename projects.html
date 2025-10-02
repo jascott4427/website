@@ -76,7 +76,7 @@
       <div class="page-header">
         <div class="page-header-subtitle">&gt; LOADING PROJECT DATABASE...</div>
         <h1 class="page-title">[ALL PROJECTS]</h1>
-        <div class="page-meta">TOTAL ENTRIES: 1 // STATUS: ACTIVE</div>
+        <div class="page-meta">TOTAL ENTRIES: 5 // STATUS: ACTIVE</div>
       </div>
 
       <!--Project 1-->
@@ -84,24 +84,137 @@
         <div class="project-header">
           <div style="flex: 1;">
             <div>
-              <span class="project-id">#001</span>
-              <span class="project-name">NAME</span>
+              <span class="project-id">#005</span>
+              <span class="project-name">Autonomous Pac-Man Robot </span>
             </div>
             <div class="project-tags">
-              <span class="tag">E-COMMERCE</span>
               <span class="tag tag-active">OPERATIONAL</span>
-              <span class="tag">2077</span>
+              <span class="tag">2025</span>
             </div>
           </div>
         </div>
         <p class="project-description">
-          TODO
+          Implemented custom ROS2 nodes for motor control, odometry, and sensor fusion on a Raspberry Pi, achieving 5cm
+navigation accuracy via RRT path planning and lidar scan-matching (>80% drift reduction) and designed a state
+machine for dynamic task prioritization, processing real-time scan data and environmental inputs to optimize robot
+behavior.
         </p>
         <div class="tech-stack">
-          <span class="tech-tag">NEXT.JS</span>
-          <span class="tech-tag">TYPESCRIPT</span>
-          <span class="tech-tag">POSTGRESQL</span>
-          <span class="tech-tag">STRIPE</span>
+          <span class="tech-tag">ROS2</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">Git</span>
+        </div>
+      </div>
+
+      <!--Project-->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="flex: 1;">
+            <div>
+              <span class="project-id">#005</span>
+              <span class="project-name">
+The Arbiter: A Dynamic Obstacle-Avoiding Bot for Flag Capture in 2D Space</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag tag-active">OPERATIONAL</span>
+              <span class="tag">2025</span>
+            </div>
+          </div>
+        </div>
+        <p class="project-description">
+          Developed a 2D autonomous agent in Python that captures a flag and returns while avoiding collisions in a dynamic environment with static and predicted dynamic obstacles.
+
+Implemented 3 motion planners: 2D RRT, 3D RRT with time coordination, and PRM with A* and a nonlinear cost function penalizing proximity to enemy FOV (cone-based, angle + range buffered).
+
+Built a dual-visualization GUI (Tkinter + Matplotlib + Pygame) for real-time path-following and occupancy grid monitoring, supporting iterative debugging and planner validation.
+
+Utilized Shapely, NumPy, and custom enemy motion predictors to model path safety margins and enforce time-consistent segment velocities across variable terrain.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Tkinter</span>
+          <span class="tech-tag">Git</span>
+        </div>
+      </div>
+
+      <!--Project 2-->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="flex: 1;">
+            <div>
+              <span class="project-id">#003</span>
+              <span class="project-name">D* Lite Algorithm Implementation for 2D Grid-Based Path Planning</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag tag-active">OPERATIONAL</span>
+              <span class="tag">2024</span>
+            </div>
+          </div>
+        </div>
+        <p class="project-description">
+          Implemented a real-time path planning system using D* Lite and A* search in Python, enabling dynamic replanning in response to environmental changes with sub-50ms update times.
+
+Modeled the environment with a grid-based occupancy map and integrated enemy field-of-view constraints to ensure safe, collision-free navigation under uncertainty.
+
+Built an interactive visualization interface using Matplotlib, Pygame, and Tkinter to display robot movement, obstacle dynamics, and trajectory adjustments in real time.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Tkinter</span>
+          <span class="tech-tag">Git</span>
+        </div>
+      </div>
+
+      <!--Project-->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="flex: 1;">
+            <div>
+              <span class="project-id">#002</span>
+              <span class="project-name">Robotic Guitar Playing System </span>
+            </div>
+            <div class="project-tags">
+              <span class="tag tag-active">OPERATIONAL</span>
+              <span class="tag">2024</span>
+            </div>
+          </div>
+        </div>
+        <p class="project-description">
+          Engineered a 45-DOF bimanual robotic system using the Shadow Robot Hand URDF in ROS, implemented
+damped least-squares inverse kinematics for task-prioritized motion planning, and wrote algorithms for chord
+progression and strumming patterns within ROS.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">ROS2</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Git</span>
+        </div>
+      </div>
+
+      <!--Project 2-->
+      <div class="project-card">
+        <div class="project-header">
+          <div style="flex: 1;">
+            <div>
+              <span class="project-id">#001</span>
+              <span class="project-name">Autonomous Computer Vision Tracking</span>
+            </div>
+            <div class="project-tags">
+              <span class="tag tag-active">OPERATIONAL</span>
+              <span class="tag">2022</span>
+            </div>
+          </div>
+        </div>
+        <p class="project-description">
+          Built a dual-mode vision system (PyTorch CNN eye detection + adaptive HSV object tracking) with >85%
+accuracy, implemented quartic spline motion smoothing, and designed an optimized 3D-printed pan/tilt platform.
+        </p>
+        <div class="tech-stack">
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">SolidWorks</span>
+          <span class="tech-tag">3D Printing</span>
         </div>
       </div>
 
