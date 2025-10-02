@@ -734,3 +734,41 @@ h6 {
     padding: 1.5rem;
   }
 }
+/* Download Section Styles */
+.download-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 20, 0, 0.2);
+}
+
+.terminal-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.prompt-text {
+  color: var(--border-color);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.terminal-output {
+  background: rgba(0, 20, 0, 0.3);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--border-color);
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.terminal-output p {
+  margin: 0.25rem 0;
+}
