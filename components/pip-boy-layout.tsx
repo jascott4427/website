@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
 import { useState, useEffect } from "react"
+import { useClickSound } from "@/hooks/use-click-sound"
 
 interface PipBoyLayoutProps {
   children: ReactNode
@@ -14,6 +15,8 @@ export function PipBoyLayout({ children }: PipBoyLayoutProps) {
   const [showSettings, setShowSettings] = useState(false)
   const [bgColor, setBgColor] = useState("#1a3a1a")
   const [borderColor, setBorderColor] = useState("#4ade80")
+
+  useClickSound()
 
   useEffect(() => {
     const savedBg = localStorage.getItem("pipboy-bg-color")

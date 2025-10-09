@@ -1,64 +1,62 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
+import Image from "next/image"
 
 export default function ProjectsPage() {
   const projects = [
     {
-      id: "001",
-      name: "VAULT-TEC TRADING SYSTEM",
-      category: "E-COMMERCE",
+      id: "005",
+      name: "AUTONOMOUS PAC-MAN ROBOT",
+      category: "ROBOTICS",
       status: "OPERATIONAL",
       description:
-        "Full-stack trading platform for wasteland merchants. Built with Next.js, PostgreSQL, and Stripe integration.",
-      tech: ["NEXT.JS", "TYPESCRIPT", "POSTGRESQL", "STRIPE"],
-      year: "2077",
-    },
-    {
-      id: "002",
-      name: "BROTHERHOOD DATABASE",
-      category: "DATA MANAGEMENT",
-      status: "OPERATIONAL",
-      description:
-        "Secure database system for tracking technology and resources. Features real-time updates and advanced search.",
-      tech: ["REACT", "SUPABASE", "TAILWIND", "WEBSOCKETS"],
-      year: "2077",
-    },
-    {
-      id: "003",
-      name: "SETTLEMENT BUILDER",
-      category: "PRODUCTIVITY",
-      status: "OPERATIONAL",
-      description:
-        "Interactive planning tool for wasteland settlements. Drag-and-drop interface with resource calculations.",
-      tech: ["REACT", "CANVAS API", "ZUSTAND", "FRAMER MOTION"],
-      year: "2076",
+        "Implemented custom ROS2 nodes for motor control, odometry, and sensor fusion on a Raspberry Pi, achieving 5cm navigation accuracy via RRT path planning and lidar scan-matching (>80% drift reduction) and designed a state machine for dynamic task prioritization, processing real-time scan data and environmental inputs to optimize robot behavior.",
+      tech: ["ROS2", "PYTHON", "OPENCV", "GIT"],
+      year: "2025",
+      image: "/assets/photos/projects/pacman-robot.jpg",
     },
     {
       id: "004",
-      name: "RADIO FREEDOM APP",
-      category: "MEDIA",
+      name: "THE ARBITER: DYNAMIC OBSTACLE-AVOIDING BOT",
+      category: "MOTION PLANNING",
       status: "OPERATIONAL",
       description:
-        "Streaming platform for wasteland radio stations. Features playlist management and live broadcasting.",
-      tech: ["NEXT.JS", "WEB AUDIO API", "REDIS", "VERCEL"],
-      year: "2076",
+        "Developed a 2D autonomous agent in Python that captures a flag and returns while avoiding collisions in a dynamic environment with static and predicted dynamic obstacles. Implemented 3 motion planners: 2D RRT, 3D RRT with time coordination, and PRM with A* and a nonlinear cost function penalizing proximity to enemy FOV (cone-based, angle + range buffered). Built a dual-visualization GUI (Tkinter + Matplotlib + Pygame) for real-time path-following and occupancy grid monitoring, supporting iterative debugging and planner validation.",
+      tech: ["PYTHON", "TKINTER", "GIT"],
+      year: "2025",
+      image: "/assets/photos/projects/arbiter.jpg",
     },
     {
-      id: "005",
-      name: "CARAVAN TRACKER",
-      category: "LOGISTICS",
-      status: "MAINTENANCE",
-      description: "Real-time tracking system for trade caravans. GPS integration and route optimization algorithms.",
-      tech: ["REACT NATIVE", "MAPBOX", "MONGODB", "EXPRESS"],
-      year: "2075",
-    },
-    {
-      id: "006",
-      name: "WASTELAND WEATHER",
-      category: "UTILITY",
+      id: "003",
+      name: "D* LITE ALGORITHM IMPLEMENTATION",
+      category: "PATH PLANNING",
       status: "OPERATIONAL",
-      description: "Radiation and weather monitoring system. Provides alerts for rad storms and safe travel windows.",
-      tech: ["NEXT.JS", "OPENWEATHER API", "CHART.JS", "PWA"],
-      year: "2075",
+      description:
+        "Implemented a real-time path planning system using D* Lite and A* search in Python, enabling dynamic replanning in response to environmental changes with sub-50ms update times. Modeled the environment with a grid-based occupancy map and integrated enemy field-of-view constraints to ensure safe, collision-free navigation under uncertainty. Built an interactive visualization interface using Matplotlib, Pygame, and Tkinter to display robot movement, obstacle dynamics, and trajectory adjustments in real time.",
+      tech: ["PYTHON", "TKINTER", "GIT"],
+      year: "2024",
+      image: "/assets/photos/projects/dstar-lite.jpg",
+    },
+    {
+      id: "002",
+      name: "ROBOTIC GUITAR PLAYING SYSTEM",
+      category: "ROBOTICS",
+      status: "OPERATIONAL",
+      description:
+        "Engineered a 45-DOF bimanual robotic system using the Shadow Robot Hand URDF in ROS, implemented damped least-squares inverse kinematics for task-prioritized motion planning, and wrote algorithms for chord progression and strumming patterns within ROS.",
+      tech: ["ROS2", "PYTHON", "GIT"],
+      year: "2024",
+      image: "/assets/photos/projects/guitar-robot.jpg",
+    },
+    {
+      id: "001",
+      name: "AUTONOMOUS COMPUTER VISION TRACKING",
+      category: "COMPUTER VISION",
+      status: "OPERATIONAL",
+      description:
+        "Built a dual-mode vision system (PyTorch CNN eye detection + adaptive HSV object tracking) with >85% accuracy, implemented quartic spline motion smoothing, and designed an optimized 3D-printed pan/tilt platform.",
+      tech: ["OPENCV", "PYTHON", "SOLIDWORKS", "3D PRINTING"],
+      year: "2022",
+      image: "/assets/photos/projects/vision-tracking.jpg",
     },
   ]
 
@@ -77,6 +75,19 @@ export default function ProjectsPage() {
               key={project.id}
               className="border-2 border-primary p-4 md:p-6 bg-background/50 hover:bg-primary/5 transition-colors"
             >
+              {project.image && (
+                <div className="mb-4 border border-primary overflow-hidden">
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.name}
+                    width={800}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ filter: "sepia(0.3) contrast(1.1)" }}
+                  />
+                </div>
+              )}
+
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">

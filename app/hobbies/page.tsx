@@ -1,73 +1,48 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
+import Image from "next/image"
 
 export default function HobbiesPage() {
   const hobbies = [
     {
       icon: "♠",
-      name: "WASTELAND EXPLORATION",
+      name: "GUITAR",
       description:
-        "Discovering pre-war ruins and collecting artifacts. Mapping uncharted territories and documenting findings.",
-      level: 9,
-    },
-    {
-      icon: "♣",
-      name: "TERMINAL HACKING",
-      description:
-        "Bypassing security systems and recovering lost data from abandoned facilities. Specializing in RobCo terminals.",
-      level: 10,
-    },
-    {
-      icon: "♥",
-      name: "WEAPON MODIFICATION",
-      description:
-        "Crafting and upgrading firearms with custom attachments. Experimenting with energy weapon conversions.",
-      level: 7,
-    },
-    {
-      icon: "♦",
-      name: "SETTLEMENT BUILDING",
-      description:
-        "Designing and constructing fortified settlements. Optimizing resource production and defense systems.",
-      level: 8,
-    },
-    {
-      icon: "◆",
-      name: "RADIO BROADCASTING",
-      description:
-        "Operating Radio Freedom. Curating playlists of pre-war music and broadcasting news across the Commonwealth.",
-      level: 6,
-    },
-    {
-      icon: "▲",
-      name: "COOKING & CHEMISTRY",
-      description:
-        "Preparing wasteland cuisine and brewing chems. Experimenting with new recipes and radiation-free ingredients.",
-      level: 7,
-    },
-    {
-      icon: "▼",
-      name: "POWER ARMOR MAINTENANCE",
-      description: "Repairing and customizing power armor suits. Collecting fusion cores and rare armor modifications.",
-      level: 8,
-    },
-    {
-      icon: "●",
-      name: "PHOTOGRAPHY",
-      description:
-        "Documenting life in the wasteland through photography. Capturing moments of beauty in the post-apocalypse.",
+        "Proficiency in the operation of a portable, non-powered audio-frequency generator. Used to replicate pre-War auditory patterns, a key factor in maintaining mental resilience during extended deployments.",
       level: 5,
+      image: "/assets/photos/hobbies/guitar.jpg",
     },
-  ]
-
-  const interests = [
-    "Pre-war technology restoration",
-    "Vault-Tec history and lore",
-    "Robotics and AI development",
-    "Wasteland survival tactics",
-    "Energy weapon research",
-    "Post-apocalyptic architecture",
-    "Radio communication systems",
-    "Nuka-Cola collecting",
+    {
+      icon: "♠",
+      name: "GAME DEVELOPMENT",
+      description:
+        "Specializes in the fabrication of interactive digital environments using Unity and proprietary engine architectures. Focus: creating immersive wasteland simulations and automated entity behavior systems from first principles.",
+      level: 2,
+      image: "/assets/photos/hobbies/gamedev.jpg",
+    },
+    {
+      icon: "♠",
+      name: "VIDEO GAMES",
+      description:
+        "Engages in advanced cognitive conditioning through pre-War digital combat simulators. Maintains strategic readiness and problem-solving acuity by interfacing with complex virtual scenarios.",
+      level: 10,
+      image: "/assets/photos/hobbies/videogames.jpg",
+    },
+    {
+      icon: "♠",
+      name: "BAKING",
+      description:
+        "Expertise in the chemical transformation of unstable organic compounds into preserved, nutrient-dense sustenance. A vital skill for long-term survival in resource-scarce environments.",
+      level: 7,
+      image: "/assets/photos/hobbies/baking.jpg",
+    },
+    {
+      icon: "♠",
+      name: "SWIMMING",
+      description:
+        "Conducts regular endurance operations in hydro-environments. Enhances cardiopulmonary resilience and muscle group efficiency, essential for traversing flooded urban sectors and riverine territories.",
+      level: 9,
+      image: "/assets/photos/hobbies/swimming.jpg",
+    },
   ]
 
   return (
@@ -76,7 +51,7 @@ export default function HobbiesPage() {
         <div className="border-b-2 border-primary pb-4">
           <div className="text-xs mb-2 opacity-70">&gt; ACCESSING RECREATIONAL DATA...</div>
           <h1 className="text-3xl md:text-5xl font-bold">[HOBBIES & INTERESTS]</h1>
-          <div className="text-sm mt-2 opacity-80">LIFE OUTSIDE THE CODE // WASTELAND ACTIVITIES</div>
+          <div className="text-sm mt-2 opacity-80">LIFE OUTSIDE OF WORK // WASTELAND ACTIVITIES</div>
         </div>
 
         {/* Hobbies Grid */}
@@ -88,6 +63,19 @@ export default function HobbiesPage() {
                 key={hobby.name}
                 className="border-2 border-primary p-4 bg-background/50 hover:bg-primary/5 transition-colors"
               >
+                {hobby.image && (
+                  <div className="mb-3 border border-primary overflow-hidden">
+                    <Image
+                      src={hobby.image || "/placeholder.svg"}
+                      alt={hobby.name}
+                      width={400}
+                      height={250}
+                      className="w-full h-auto object-cover"
+                      style={{ filter: "sepia(0.3) contrast(1.1)" }}
+                    />
+                  </div>
+                )}
+
                 <div className="flex items-start gap-3 mb-3">
                   <div className="text-3xl">{hobby.icon}</div>
                   <div className="flex-1">
@@ -105,19 +93,6 @@ export default function HobbiesPage() {
                   </div>
                 </div>
                 <p className="text-sm leading-relaxed opacity-90">{hobby.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Interests Section */}
-        <div className="border border-primary p-6 bg-background/50">
-          <div className="text-xl font-bold mb-4 border-b border-primary pb-2">[AREAS OF INTEREST]</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {interests.map((interest, index) => (
-              <div key={index} className="flex items-center gap-2 text-sm">
-                <span className="text-primary">▸</span>
-                <span>{interest}</span>
               </div>
             ))}
           </div>

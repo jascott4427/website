@@ -1,65 +1,18 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
+import Image from "next/image"
 
 export default function GameDevPage() {
   const projects = [
     {
       id: "GD-001",
-      name: "WASTELAND TACTICS",
-      type: "TURN-BASED STRATEGY",
+      name: "WASTELAND ASTEROIDS",
+      type: "ARCADE",
       status: "IN DEVELOPMENT",
       progress: 65,
-      description:
-        "A tactical RPG set in the post-apocalyptic wasteland. Features grid-based combat, resource management, and branching storylines.",
-      tech: ["UNITY", "C#", "SHADER GRAPH", "CINEMACHINE"],
-      features: [
-        "Turn-based tactical combat system",
-        "Procedural map generation",
-        "Character progression & skill trees",
-        "Dynamic weather & day/night cycle",
-      ],
-    },
-    {
-      id: "GD-002",
-      name: "TERMINAL BREACH",
-      type: "PUZZLE / HACKING",
-      status: "PROTOTYPE",
-      progress: 40,
-      description:
-        "A hacking puzzle game inspired by Fallout's terminal minigame. Players must crack passwords and bypass security systems.",
-      tech: ["GODOT", "GDSCRIPT", "PIXEL ART"],
-      features: [
-        "Word-matching puzzle mechanics",
-        "Progressive difficulty system",
-        "Retro terminal aesthetic",
-        "Leaderboard & achievements",
-      ],
-    },
-    {
-      id: "GD-003",
-      name: "VAULT DWELLER",
-      type: "SURVIVAL / MANAGEMENT",
-      status: "CONCEPT",
-      progress: 15,
-      description:
-        "Manage your own vault in this survival management sim. Balance resources, keep dwellers happy, and defend against threats.",
-      tech: ["UNITY", "C#", "DOTween", "ADDRESSABLES"],
-      features: [
-        "Vault building & customization",
-        "Dweller management & assignments",
-        "Resource production chains",
-        "Random event system",
-      ],
-    },
-    {
-      id: "GD-004",
-      name: "RADROACH RAMPAGE",
-      type: "ARCADE / ACTION",
-      status: "COMPLETED",
-      progress: 100,
-      description:
-        "A fast-paced arcade shooter where you defend your settlement from waves of mutated creatures. High score focused gameplay.",
-      tech: ["PHASER.JS", "TYPESCRIPT", "WEB AUDIO API"],
-      features: ["Wave-based enemy spawning", "Power-up system", "Local high score tracking", "Retro pixel art style"],
+      description: 'A remake of the classic arcade game "Asteroids" in Fallout 4 Pip Boy style.',
+      tech: ["JAVASCRIPT"],
+      features: ["Infinite Wave System", "Circular Hitbox Collision Detection", "Custom FX and Graphics"],
+      image: "/assets/photos/gamedev/asteroids.jpg",
     },
   ]
 
@@ -75,6 +28,19 @@ export default function GameDevPage() {
         <div className="space-y-6">
           {projects.map((project) => (
             <div key={project.id} className="border-2 border-primary p-6 bg-background/50">
+              {project.image && (
+                <div className="mb-4 border border-primary overflow-hidden">
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.name}
+                    width={800}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ filter: "sepia(0.3) contrast(1.1)" }}
+                  />
+                </div>
+              )}
+
               {/* Header */}
               <div className="mb-4">
                 <div className="flex items-center gap-3 mb-2">
@@ -83,17 +49,7 @@ export default function GameDevPage() {
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs mb-3">
                   <span className="border border-primary px-2 py-1">{project.type}</span>
-                  <span
-                    className={`border px-2 py-1 ${
-                      project.status === "COMPLETED"
-                        ? "border-primary bg-primary/20"
-                        : project.status === "IN DEVELOPMENT"
-                          ? "border-primary bg-primary/10"
-                          : "border-primary/50"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
+                  <span className="border px-2 py-1 border-primary bg-primary/10">{project.status}</span>
                 </div>
               </div>
 
@@ -144,19 +100,19 @@ export default function GameDevPage() {
           <div className="text-xl font-bold mb-4 border-b border-primary pb-2">[DEVELOPMENT STATISTICS]</div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-3xl font-bold mb-1">4</div>
+              <div className="text-3xl font-bold mb-1">1</div>
               <div className="text-xs opacity-70">TOTAL PROJECTS</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-1">1</div>
+              <div className="text-3xl font-bold mb-1">0</div>
               <div className="text-xs opacity-70">COMPLETED</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-1">2</div>
+              <div className="text-3xl font-bold mb-1">1</div>
               <div className="text-xs opacity-70">IN DEVELOPMENT</div>
             </div>
             <div>
-              <div className="text-3xl font-bold mb-1">5K+</div>
+              <div className="text-3xl font-bold mb-1">1K+</div>
               <div className="text-xs opacity-70">LINES OF CODE</div>
             </div>
           </div>

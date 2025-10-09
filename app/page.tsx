@@ -1,4 +1,6 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function HomePage() {
   return (
@@ -7,8 +9,22 @@ export default function HomePage() {
         {/* Terminal Header */}
         <div className="border-b-2 border-primary pb-4">
           <div className="text-xs mb-2 opacity-70">&gt; ACCESSING PERSONAL DATA...</div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-2">VAULT DWELLER</h1>
-          <div className="text-xl md:text-2xl opacity-80">SOFTWARE ENGINEER // WASTELAND SURVIVOR</div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-2">James A. Scott III</h1>
+          <div className="text-xl md:text-2xl opacity-80">MECHANICAL & ROBOTICS ENGINEER // VAULT DWELLER</div>
+        </div>
+
+        {/* Profile Photo Section */}
+        <div className="flex justify-center">
+          <div className="border-2 border-primary p-2 bg-background/50">
+            <Image
+              src="/assets/photos/profile/avatar.jpg"
+              alt="Profile Photo"
+              width={300}
+              height={300}
+              className="object-cover"
+              style={{ filter: "sepia(0.4) contrast(1.2)" }}
+            />
+          </div>
         </div>
 
         {/* Stats Display */}
@@ -18,11 +34,11 @@ export default function HomePage() {
             <div className="space-y-2 font-mono text-sm">
               <div className="flex justify-between">
                 <span>STRENGTH:</span>
-                <span>▮▮▮▮▮▮▮▯▯▯</span>
+                <span>▮▮▮▮▮▮▮▮▯▯</span>
               </div>
               <div className="flex justify-between">
                 <span>PERCEPTION:</span>
-                <span>▮▮▮▮▮▮▮▮▯▯</span>
+                <span>▮▮▮▮▮▮▮▮▮▯</span>
               </div>
               <div className="flex justify-between">
                 <span>ENDURANCE:</span>
@@ -38,11 +54,11 @@ export default function HomePage() {
               </div>
               <div className="flex justify-between">
                 <span>AGILITY:</span>
-                <span>▮▮▮▮▮▮▮▮▯▯</span>
+                <span>▮▮▮▮▮▮▯▯▯▯</span>
               </div>
               <div className="flex justify-between">
                 <span>LUCK:</span>
-                <span>▮▮▮▮▮▮▮▯▯▯</span>
+                <span>▮▯▯▯▯▯▯▯▯▯</span>
               </div>
             </div>
           </div>
@@ -50,10 +66,16 @@ export default function HomePage() {
           <div className="border border-primary p-4 bg-background/50">
             <div className="text-lg font-bold mb-3 border-b border-primary pb-2">[STATUS]</div>
             <div className="space-y-3 text-sm leading-relaxed">
-              <p>&gt; OCCUPATION: Full-Stack Developer</p>
-              <p>&gt; SPECIALIZATION: React, Next.js, TypeScript</p>
-              <p>&gt; LOCATION: The Commonwealth</p>
-              <p>&gt; MISSION: Building pixel-perfect interfaces for the wasteland</p>
+              <p>&gt; SCHOOL: California Institute of Technology</p>
+              <p>&gt; QUALIFICATIONS: B.S. Mechanical Engineering</p>
+              <p>&gt; STATUS: Finalizing undergraduate studies</p>
+              <p>&gt; SPECIALIZATION: Robotics & autonomous systems</p>
+              <p>&gt; LOCATION: USA /// Clearance for relocation granted</p>
+              <p>
+                &gt; PRIMARY DIRECTIVE: Seeking full-time engineering roles in robotics, mechatronics, computer vision,
+                and rapid prototyping
+              </p>
+              <p>&gt; MISSION: To design and deploy innovative systems that solve complex real-world problems</p>
             </div>
           </div>
         </div>
@@ -63,39 +85,50 @@ export default function HomePage() {
           <div className="text-lg font-bold mb-4 border-b border-primary pb-2">[PERSONAL LOG]</div>
           <div className="space-y-4 text-sm leading-relaxed">
             <p>
-              &gt; Day 2,847: Another successful deployment to the wasteland. The settlers are pleased with the new
-              trading interface I built. Performance optimizations reduced load times by 40%.
+              &gt; Day 2,847: Field deployment of Mark IV maintenance drone successful. Settlement reports a 40%
+              increase in operational uptime for perimeter defense systems.
             </p>
             <p>
-              &gt; I specialize in crafting accessible, pixel-perfect digital experiences that blend thoughtful design
-              with robust engineering. My favorite work lies at the intersection of design and development, creating
-              experiences that not only look great but are meticulously built for performance and usability.
+              &gt; Design and fabrication of robust electromechanical systems. Focus on the integration of hardware and
+              software—creating functional prototypes that transition seamlessly from CAD model to physical reality.
             </p>
             <p>
               &gt; When I'm not coding, you'll find me exploring the wasteland, collecting bottle caps, and occasionally
-              fighting off radroaches. The post-apocalyptic life of a developer is never boring.
+              fighting off radroaches. The post-apocalyptic life of an engineer is never boring.
             </p>
           </div>
         </div>
 
         {/* Quick Links */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors cursor-pointer">
+          <Link
+            href="/projects"
+            className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors"
+          >
             <div className="text-3xl mb-2">▣</div>
             <div className="text-xs">VIEW PROJECTS</div>
-          </div>
-          <div className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors cursor-pointer">
+          </Link>
+          <Link
+            href="/hobbies"
+            className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors"
+          >
             <div className="text-3xl mb-2">♦</div>
             <div className="text-xs">HOBBIES</div>
-          </div>
-          <div className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors cursor-pointer">
+          </Link>
+          <Link
+            href="/gamedev"
+            className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors"
+          >
             <div className="text-3xl mb-2">▲</div>
             <div className="text-xs">GAME DEV</div>
-          </div>
-          <div className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors cursor-pointer">
+          </Link>
+          <Link
+            href="/resume"
+            className="border border-primary p-4 bg-background/50 text-center hover:bg-primary/10 transition-colors"
+          >
             <div className="text-3xl mb-2">■</div>
             <div className="text-xs">RESUME</div>
-          </div>
+          </Link>
         </div>
       </div>
     </PipBoyLayout>
