@@ -1,5 +1,6 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function ProjectsPage() {
   const projects = [
@@ -24,6 +25,7 @@ export default function ProjectsPage() {
       tech: ["PYTHON", "TKINTER", "GIT"],
       year: "2025",
       image: "/assets/photos/projects/arbiter.jpg",
+      pdfs: [{ name: "TECHNICAL PAPER", url: "/assets/pdfs/Arbiter_final_paper.pdf" }],
     },
     {
       id: "003",
@@ -35,6 +37,7 @@ export default function ProjectsPage() {
       tech: ["PYTHON", "TKINTER", "GIT"],
       year: "2024",
       image: "/assets/photos/projects/dstar-lite.jpg",
+      pdfs: [{ name: "TECHNICAL PAPER", url: "/assets/pdfs/D_star_lite_final_paper.pdf" }],
     },
     {
       id: "002",
@@ -46,6 +49,7 @@ export default function ProjectsPage() {
       tech: ["ROS2", "PYTHON", "GIT"],
       year: "2024",
       image: "/assets/photos/projects/guitar-robot.jpg",
+      pdfs: [{ name: "BOT DYLAN PAPER", url: "/assets/pdfs/bot-dylan.pdf" }],
     },
     {
       id: "001",
@@ -57,6 +61,7 @@ export default function ProjectsPage() {
       tech: ["OPENCV", "PYTHON", "SOLIDWORKS", "3D PRINTING"],
       year: "2022",
       image: "/assets/photos/projects/vision-tracking.jpg",
+      pdfs: [{ name: "PILLARS FORUM POSTER", url: "/assets/pdfs/PILLARS-Forum-Poster.pdf" }],
     },
   ]
 
@@ -110,13 +115,29 @@ export default function ProjectsPage() {
 
               <p className="text-sm leading-relaxed mb-4 opacity-90">{project.description}</p>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech) => (
                   <span key={tech} className="text-xs border border-primary/50 px-2 py-1 bg-background/50">
                     {tech}
                   </span>
                 ))}
               </div>
+
+              {project.pdfs && project.pdfs.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-primary/30">
+                  {project.pdfs.map((pdf, index) => (
+                    <Link
+                      key={index}
+                      href={pdf.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs border-2 border-primary px-3 py-2 bg-primary/10 hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      ▼ {pdf.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

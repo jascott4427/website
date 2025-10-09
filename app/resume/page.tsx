@@ -1,4 +1,5 @@
 import { PipBoyLayout } from "@/components/pip-boy-layout"
+import Link from "next/link"
 
 export default function ResumePage() {
   const experience = [
@@ -169,9 +170,14 @@ export default function ResumePage() {
 
         {/* Download Button */}
         <div className="border border-primary p-6 bg-background/50 text-center">
-          <button className="border-2 border-primary px-6 py-3 bg-primary/10 hover:bg-primary hover:text-primary-foreground transition-colors text-sm font-bold">
+          <Link
+            href="/Scott_James_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border-2 border-primary px-6 py-3 bg-primary/10 hover:bg-primary hover:text-primary-foreground transition-colors text-sm font-bold"
+          >
             ▼ DOWNLOAD FULL RESUME (PDF)
-          </button>
+          </Link>
         </div>
       </div>
     </PipBoyLayout>

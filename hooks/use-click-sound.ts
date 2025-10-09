@@ -7,7 +7,7 @@ export function useClickSound() {
 
   useEffect(() => {
     // Initialize audio element
-    audioRef.current = new Audio("/assets/audio/click.wav")
+    audioRef.current = new Audio("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/files-blob/website/public/assets/audio/click-pkHQA5Ze6MoEm4XDIXQ6m7cBwhl2i5.wav")
     audioRef.current.volume = 0.3 // Set volume to 30%
 
     // Add click event listener to all buttons and links
