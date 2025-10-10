@@ -8,17 +8,33 @@ document.addEventListener("DOMContentLoaded", () => {
   initClickSound()
 })
 
-// Click Sound Effect
+// Click Sound Functionality - UPDATED VERSION
 function initClickSound() {
     const clickSound = document.getElementById('clickSound');
     
     function playClickSound() {
-        if (clickSound) {
+        return new Promise((resolve) => {
+            if (!clickSound) {
+                resolve();
+                return;
+            }
+            
             clickSound.currentTime = 0;
-            clickSound.play().catch(e => {
-                // Silent fail for autoplay restrictions
-            });
-        }
+            const playPromise = clickSound.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Wait for sound to finish or navigate after a minimum time
+                    setTimeout(resolve, 300);
+                }).catch(() => {
+                    // If sound fails to play, still resolve after short delay
+                    setTimeout(resolve, 150);
+                });
+            } else {
+                // Fallback if play promise isn't supported
+                setTimeout(resolve, 300);
+            }
+        });
     }
     
     // Add click event listeners to all interactive elements
@@ -33,19 +49,37 @@ function initClickSound() {
         const elements = document.querySelectorAll(selector);
         elements.forEach(element => {
             element.addEventListener('click', function(e) {
+                // Don't interfere with disabled elements
                 if (this.disabled || this.classList.contains('disabled')) {
                     return;
                 }
                 
-                // Don't play for anchor links that just scroll
-                if (this.tagName === 'A') {
+                // Handle regular links (not same-page anchors)
+                if (this.tagName === 'A' && this.hasAttribute('href')) {
                     const href = this.getAttribute('href');
-                    if (href && href.startsWith('#')) {
+                    
+                    // Don't intercept same-page anchors, external links, or mailto links
+                    if (href.startsWith('#') || 
+                        href.startsWith('http') || 
+                        href.startsWith('mailto:') || 
+                        href.startsWith('tel:') ||
+                        this.target === '_blank') {
                         return;
                     }
+                    
+                    // Prevent default navigation
+                    e.preventDefault();
+                    
+                    // Play sound and then navigate
+                    playClickSound().then(() => {
+                        window.location.href = href;
+                    });
                 }
                 
-                setTimeout(playClickSound, 50);
+                // For buttons and other elements, just play sound (they don't navigate)
+                else {
+                    playClickSound();
+                }
             });
         });
     });
