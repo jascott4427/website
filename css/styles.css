@@ -435,6 +435,7 @@ h6 {
 /* Project Card */
 .project-card {
   border: 2px solid var(--pipboy-border-custom);
+  overflow: hidden;
   padding: 1.5rem;
   background-color: rgba(0, 0, 0, 0.3);
   margin-bottom: 1.5rem;
@@ -786,8 +787,9 @@ h6 {
   /* File Upload */
   .project-image {
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    object-fit: cover;
     margin: 1em auto;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
