@@ -5,7 +5,51 @@ document.addEventListener("DOMContentLoaded", () => {
   initColorSettings()
   initNavigation()
   initScanWave()
+  initClickSound()
 })
+
+// Click Sound Effect
+function initClickSound() {
+    const clickSound = document.getElementById('clickSound');
+    
+    function playClickSound() {
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(e => {
+                // Silent fail for autoplay restrictions
+            });
+        }
+    }
+    
+    // Add click event listeners to all interactive elements
+    const interactiveSelectors = [
+        'a[href]', 'button', 'input[type="button"]', 'input[type="submit"]',
+        'input[type="reset"]', 'input[type="color"]', 'select',
+        '.nav-link', '.settings-btn', '.preset-btn', '.project-pdf-btn',
+        '.quick-link', '.download-btn', '.project-link'
+    ];
+    
+    interactiveSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (this.disabled || this.classList.contains('disabled')) {
+                    return;
+                }
+                
+                // Don't play for anchor links that just scroll
+                if (this.tagName === 'A') {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        return;
+                    }
+                }
+                
+                setTimeout(playClickSound, 50);
+            });
+        });
+    });
+}
 
 // Color Settings Management
 function initColorSettings() {
