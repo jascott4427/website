@@ -766,6 +766,61 @@ h6 {
   opacity: 0.7;
 }
 
+/* File Upload */
+.project-media {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.project-image-container {
+  display: block;
+  width: 100%;
+  max-width: 600px; /* Prevents images from getting too large */
+  margin: 1em auto;
+  text-align: center;
+}
+
+.project-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Prevents vertical overflow */
+  object-fit: contain; /* Better than cover for maintaining aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Force new line before PDF button */
+.project-pdf-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 1em 0;
+  clear: both; /* Ensures it starts on a new line */
+}
+
+.project-pdf-btn {
+  display: inline-block !important;
+  background-color: #f2f2f2 !important;
+  color: #333 !important;
+  text-decoration: none !important;
+  padding: 0.6em 1.2em !important;
+  border-radius: 6px !important;
+  border: 1px solid #ccc !important;
+  transition: background-color 0.2s ease !important;
+  margin: 0.5em auto !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+}
+
+.project-pdf-btn:hover {
+  background-color: #e6e6e6 !important;
+  text-decoration: none !important;
+  color: #333 !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
@@ -783,48 +838,6 @@ h6 {
   .main-content {
     padding: 1.5rem;
   }
-
-  /* File Upload */
-  .project-image-container {
-    display: block;
-    width: 100%;
-    max-width: 600px; /* Prevents images from getting too large */
-    margin: 1em auto;
-    text-align: center;
-  }
-
-  .project-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 400px; /* Optional: prevents vertical overflow */
-    object-fit: contain; /* Better than cover for maintaining aspect ratio */
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-
-  /* Force new line before PDF button */
-  .project-pdf-container {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin: 1em 0;
-    clear: both; /* Ensures it starts on a new line */
-  }
-
-  .project-pdf-btn {
-    display: inline-block;
-    background-color: #f2f2f2;
-    color: #333;
-    text-decoration: none;
-    padding: 0.6em 1.2em;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    transition: background-color 0.2s ease;
-    margin: 0.5em auto;
-  }
-
-  .project-pdf-btn:hover {
-    background-color: #e6e6e6;
-  }
+  
+  /* Keep any other mobile-specific styles you need */
 }
