@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asteroids Start</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+
+        // TODO: add animations for ships and bullets and invincibility
+        // TODO: add explosion animations and fx
+        // TODO: add point system
+        // TODO: add arcade style main menu
+        // TODO: add background to main menu
+        // Add gameover screen
+        // Add delay between waves, asteroid splitting, dying, etc
+
+        // =============================
+        // Constants
+        // =============================
+        // Background
+        const NUM_STARS = 200;   // number of stars
+        const MAX_STAR_SIZE = 3; // maximum radius of stars
+
+        // Player
+        const PLAYER_SIZE = 60;     // ship size in pixels
+        const SHIP_ACC = 200;       // pixels/s^2
+        const FRICTION = 0.8;       // cooeficient of friction
+        const SHIP_VEL = 500;       // pixels / second
+        const SHIP_HIT_RADIUS = 15; // pixels
+
+        // Bullets
+        const BULLET_VEL = 600;         // pixels/second
+        const BULLET_DUR = 2;           // seconds
+        const BULLET_SIZE = 20;         // pixels
+        const BULLET_HIT_RADIUS = 10;   // pixels
+
+        // Asteroids
+        const ROIDS = {
+            large: {size: 150, hitRadius: 75, points: 20},
+            medium: {size: 120, hitRadius: 35, points: 50},
+            small: {size: 90, hitRadius: 15, points: 100}
+        };
+        const ROID_MAX_V = 300;
+        const ROID_MIN_V = 50;
+        const ROID_MAX_W = 2.0;
+        const ROID_MIN_W = 0.5;
+        const MAX_ROIDS = 200;
+
+        // Game
+        const INIT_ROIDS = 1;
+
+        // Website color scheme
+        const DEFAULT_PRIMARY = "#2CFF05";   // change as desired
+        const DEFAULT_BACKGROUND = "#000000"; // change as desired
+
+        // =============================
+        // Setup Canvas
+        // =============================
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // ==============================
+        // Helper functions
+        // ==============================
+        function hexToRgb(hex) {
+            hex = (hex || "").replace(/^#/, "");
+            if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
+            const num = parseInt(hex, 16);
+            return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+        }
+
+        // function hexToCssColor(hex) {
+        //     hex = (hex || "").replace(/^#/, "");
+        //     if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
+        //     return `#${hex}`;
+        // }
+
+
+        function rgbToGrayscale(r, g, b) {
+            // Perceptual luminance
+            return 0.299 * r + 0.587 * g + 0.114 * b;
+        }
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function lerpColor(c1, c2, t) {
+            return {
+                r: Math.round(lerp(c1.r, c2.r, t)),
+                g: Math.round(lerp(c1.g, c2.g, t)),
+                b: Math.round(lerp(c1.b, c2.b, t))
+            };
+        }
+
+        /* 
+        img2gradient:
+        - img: an HTMLImageElement which is already loaded
+        - primaryHex: e.g. "#00aaff"
+        - backgroundHex: e.g. "#101010"
+        returns a dataURL string of the processed image (RGBA preserved)
+        */
+        function img2gradient(img, primaryHex, backgroundHex) {
+            // create offscreen canvas sized to image
+            const c = document.createElement('canvas');
+            c.width = img.naturalWidth || img.width;
+            c.height = img.naturalHeight || img.height;
+            const cx = c.getContext('2d');
+
+            // draw original
+            cx.clearRect(0, 0, c.width, c.height);
+            cx.drawImage(img, 0, 0, c.width, c.height);
+
+            // get pixels
+            const imageData = cx.getImageData(0, 0, c.width, c.height);
+            const data = imageData.data;
+
+            const primary = hexToRgb(primaryHex);
+            const background = hexToRgb(backgroundHex);
+
+            // process pixels
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+                // if fully transparent, skip
+                if (a === 0) continue;
+
+                const gray = rgbToGrayscale(r, g, b) / 255; // normalized 0..1
+                const mapped = lerpColor(background, primary, gray);
+
+                data[i] = mapped.r;
+                data[i + 1] = mapped.g;
+                data[i + 2] = mapped.b;
+                // preserve alpha
+            }
+
+            cx.putImageData(imageData, 0, 0);
+            return c.toDataURL('image/png');
+        }
+
+        /**
+         * Load an image, recolor it with a gradient, and assign to a target object.
+         * @param {Object} target - The object that will receive .img and .ready
+         * @param {string} src - The image filename or URL
+         * @param {string} [primary=DEFAULT_PRIMARY] - The primary hex color
+         * @param {string} [background=DEFAULT_BACKGROUND] - The background hex color
+         */
+        function file2gradient(target, src, primary = DEFAULT_PRIMARY, background = DEFAULT_BACKGROUND) {
+            target.img = new Image();
+            target.ready = false;
+
+            const base = new Image();
+            base.crossOrigin = "anonymous";
+            base.src = src;
+
+            base.onload = () => {
+                try {
+                    const dataUrl = img2gradient(base, primary, background);
+                    const processed = new Image();
+                    processed.src = dataUrl;
+                    processed.onload = () => {
+                        target.img = processed;
+                        target.ready = true;
+                    };
+                } catch (err) {
+                    console.warn("Gradient conversion failed:", err);
+                    target.img.src = src;
+                    target.ready = true;
+                }
+            };
+
+            base.onerror = (e) => {
+                console.warn("Could not load sprite:", e);
+                target.img.src = src;
+                target.ready = true;
+            };
+        }
+
+        // =============================
+        // Sound Manager
+        // =============================
+        class SoundManager {
+            constructor() {
+                this.sounds = {};
+                this.loopingSounds = {};
+                this.music = null;
+                this.musicVolume = 0.5;
+                this.soundVolume = 0.7;
+                this.musicPlaying = false;
+            }
+
+            loadSound(name, path){
+                const audio = new Audio(path);
+                audio.volume = this.soundVolume;
+                audio.preload = 'auto';
+                audio.load();
+                this.sounds[name] = audio;
+                console.log(`Loaded sound: ${name}`);
+            }
+
+            playSound(name){
+                if (this.sounds[name]) {
+                    const sound = this.sounds[name].cloneNode();
+                    sound.volume = this.soundVolume;
+                    sound.play().catch(e => console.log(`Could not play sound ${name}:`, e));
+                }
+            }
+
+            playLoopingSound(name) {
+                if (this.sounds[name] && !this.loopingSounds[name]) {
+                    const sound = this.sounds[name].cloneNode();
+                    sound.volume = this.soundVolume;
+                    sound.loop = true;
+                    sound.play().then(() => {this.loopingSounds[name] = sound}).catch(e => console.log('Could not play sound ${name}:', e));
+                }
+            }
+
+            stopLoopingSound(name) {
+                if (this.loopingSounds[name]) {
+                    this.loopingSounds[name].pause();
+                    this.loopingSounds[name].currentTime = 0;
+                    delete this.loopingSounds[name];
+                }
+            }
+
+            stopAllLoopingSounds() {
+                Object.keys(this.loopingSounds).forEach(name => {this.stopLoopingSound(name)});
+            }
+
+            playMusic(path){
+                if (this.music) {
+                    this.music.pause();
+                }
+                this.music = new Audio(path);
+                this.music.volume = this.musicVolume;
+                this.music.loop = true;
+
+                this.music.play().then(() => {this.musicPlaying = true}).catch(e => console.log("Could not play music:", e));
+            }
+
+            stopMusic(){
+                if (this.music) {
+                    this.music.pause();
+                    this.musicPlaying = false;
+                }
+            }
+
+            setSoundVolume(vol){
+                this.soundVolume = Math.max(0, Math.min(1, vol));
+                Object.values(this.sounds).forEach(sound => {sound.volume = this.soundVolume});
+            }
+
+            setMusicVolume(vol){
+                this.musicVolume = Math.max(0, Math.min(1, vol));
+                if (this.music) {
+                    this.music.volume = this.musicVolume;
+                }
+            }
+
+            toggleMusic(){
+                if (this.musicPlaying) {
+                    this.stopMusic();
+                }
+                else if (this.music) {
+                    this.music.play();
+                    this.musicPlaying = true;
+                }
+            }
+        }
+
+        // =============================
+        // Start Screen Class
+        // =============================
+        class StartScreen {
+            constructor() {
+                this.visible = true;
+            }
+
+            draw() {
+                if (!this.visible) return;
+
+                // Semi-transparent overlay
+                ctx.fillStyle = DEFAULT_BACKGROUND;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Title
+                ctx.fillStyle = DEFAULT_PRIMARY;
+                ctx.font = "48px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("ASTEROIDS", canvas.width/2, canvas.height/2 - 50);
+
+                // Instructions
+                ctx.font = "24px Arial";
+                ctx.fillText("Click or press any key to start", canvas.width/2, canvas.height/2 + 50);
+                ctx.fillText("Use Arrow Keys to move, Space to shoot", canvas.width/2, canvas.height/2 + 100);
+            }
+
+            hide() {
+                this.visible = false;
+            }
+        }
+        // =============================
+        // Background class
+        // =============================
+        class Background {
+            constructor() {
+                this.stars = [];
+                for (let i = 0; i < NUM_STARS; i++) {
+                    this.stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * MAX_STAR_SIZE + 1,
+                        alpha: Math.random() * 0.5 + 0.5,
+                        targetAlpha: Math.random() * 0.5 + 0.5,
+                        flickerSpeed: 0.2 + Math.random() * 0.3  // how fast it sparkles
+                    });
+                }
+            }
+
+            update(dt) {
+                for (let star of this.stars) {
+                    // Move alpha toward targetAlpha
+                    const diff = star.targetAlpha - star.alpha;
+                    star.alpha += diff * star.flickerSpeed * dt * 60;  // scaled by framerate
+
+                    // Once close enough, pick a new random target
+                    if (Math.abs(diff) < 0.01) {
+                        star.targetAlpha = Math.random() * 0.5 + 0.5; // new sparkle intensity
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = DEFAULT_BACKGROUND;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (let star of this.stars) {
+                    ctx.globalAlpha = star.alpha;
+
+                    // Optional color sparkle
+                    const hueShift = Math.random() * 20 - 10; // small hue variation
+                    const color = `hsl(${100 + hueShift}, 100%, 70%)`;
+
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        // =============================
+        // Player class
+        // =============================
+        class Player {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.angle = 0; // facing up
+                this.vx = 0;
+                this.vy = 0;
+                this.hitRadius = SHIP_HIT_RADIUS;
+
+                // sound states
+                this.isThrusting = false;
+                this.thrustSound = null;
+
+                // Load and process player asset
+                file2gradient(this, "{% static 'Starfighter Files/sprites/Ships/ship-a/ship-a1.png' %}");
+
+                // Physics constants
+                this.acc = SHIP_ACC;       // pixels per second^2
+                this.angVel = Math.PI; // rad/s
+                this.friction = FRICTION;    // per second
+                this.vel = SHIP_VEL;     // pixels per second
+                this.invincible = false;
+                this.hitboxActive = false // CHANGE ON FOR DEBUGGING
+            }
+
+            update(keys, dt, soundManager) {                
+                // Rotation
+                if (keys["ArrowLeft"] || keys["KeyA"]) this.angle -= this.angVel * dt;
+                if (keys["ArrowRight"] || keys["KeyD"]) this.angle += this.angVel * dt;
+
+                // Thrust
+                // Audio loading
+                const wasThrusting = this.isThrusting;
+                if (keys["ArrowUp"] || keys["KeyW"]) {
+                    this.isThrusting = true;
+                }
+                else {
+                    this.isThrusting = false;
+                }
+                if (this.isThrusting && !wasThrusting) {
+                    soundManager.playLoopingSound('thrust');
+                }
+                else if (!this.isThrusting && wasThrusting) {
+                    soundManager.stopLoopingSound('thrust');
+                }
+                // Motion handling of thrust
+                if (this.isThrusting) {
+                    const thrustAngle = this.angle;
+                    this.vx += Math.cos(thrustAngle) * this.acc * dt;
+                    this.vy += Math.sin(thrustAngle) * this.acc * dt;
+                }
+
+                // Apply friction
+                this.vx *= Math.pow(this.friction, dt);
+                this.vy *= Math.pow(this.friction, dt);
+
+                // Limit max velocity
+                const speed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+                if (speed > this.vel) {
+                    const scale = this.vel / speed;
+                    this.vx *= scale;
+                    this.vy *= scale;
+                }
+
+                // Update position
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+
+                // Screen wrap
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                if (!this.ready) return;
+                // player 
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle + Math.PI/2);
+                ctx.drawImage(this.img, -PLAYER_SIZE/2, -PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE);
+
+                // hitbox
+                if (this.hitboxActive) {
+                    ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.hitRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        class Bullet {
+            constructor(originX, originY, angle, hitbox_status) {
+                this.x = originX;
+                this.y = originY;
+                this.angle = angle;
+                this.dur = BULLET_DUR;
+                this.vel = BULLET_VEL;
+                this.hitboxActive = hitbox_status
+                this.hitRadius = BULLET_HIT_RADIUS;
+                this.vx = 0;
+                this.vy = 0;
+                this.size = BULLET_SIZE;
+
+                file2gradient(this, "{% static 'Starfighter Files/sprites/FX/bullet/bullet1.png' %}");
+            }
+
+            update(dt) {
+                // Calculate trajectory 
+                this.vx = Math.cos(this.angle) * this.vel;
+                this.vy = Math.sin(this.angle) * this.vel;
+
+                // Update position
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+
+                // Update duration
+                this.dur -= dt;
+
+                // Screen wrap
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                if (!this.ready) return;
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.drawImage(this.img, -this.size/2, -this.size/2, this.size, this.size);
+
+                // hitbox
+                if (this.hitboxActive) {
+                    ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.hitRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }  
+        
+        class Roid {
+            constructor(roidSize, x, y, theta, v, w, hitboxStatus) {
+                this.roidSize = roidSize;
+                this.x = x;
+                this.y = y;
+                this.angle = theta;
+                this.v = v;
+                this.vx = Math.cos(this.angle) * v;
+                this.vy = Math.sin(this.angle) * v;
+                this.w = w;
+                this.hitRadius = 0;
+                this.hitboxActive = hitboxStatus;
+                this.size = 0;
+
+                if (this.roidSize == 'large') {
+                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/big-c.png' %}");
+                    this.hitRadius = ROIDS.large.hitRadius;
+                    this.size = ROIDS.large.size;
+                    this.points = ROIDS.large.points;
+                } else if (this.roidSize == 'medium') {
+                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/med-c.png' %}");
+                    this.hitRadius = ROIDS.medium.hitRadius;
+                    this.size = ROIDS.medium.size;
+                    this.points = ROIDS.medium.points;
+                } else if (this.roidSize == 'small') {
+                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/small-c.png' %}");
+                    this.hitRadius = ROIDS.small.hitRadius;
+                    this.size = ROIDS.small.size;
+                    this.points = ROIDS.small.points;
+                }
+            }
+
+            update(dt) {                
+                // Calculate position
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+                this.angle += this.w * dt;
+
+                // Screen wrap
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                if (!this.ready) return;
+                // player 
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle + Math.PI/2);
+                ctx.drawImage(this.img, -this.size/2, -this.size/2, this.size, this.size);
+
+                // hitbox
+                if (this.hitboxActive) {
+                    ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.hitRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+        class Explosion {
+            constructor(x, y, width, height, frameCount, frameDur, src, columns) {
+                this.x = x;
+                this.y = y;
+                this.frameWidth = width;
+                this.frameHeight = height;
+                this.frameCount = frameCount;
+                this.frameDur = frameDur; // seconds per frame
+                this.columns = columns;
+                this.elapsedTime = 0;
+                this.done = false;
+
+                // Load image once
+                this.img = new Image();
+                this.img.src = src;
+                this.ready = false;
+                this.img.onload = () => this.ready = true;
+            }
+
+            update(dt) {
+                if (this.done) return;
+                this.elapsedTime += dt;
+                if (this.elapsedTime >= this.frameCount * this.frameDur) {
+                    this.done = true;
+                }
+            }
+
+            draw(ctx) {
+                if (!this.ready || this.done) return;
+                const currentFrame = Math.floor(this.elapsedTime / this.frameDur);
+                const sx = (currentFrame % this.columns) * this.frameWidth;
+                const sy = Math.floor(currentFrame / this.columns) * this.frameHeight;
+
+                ctx.drawImage(
+                    this.img,
+                    sx, sy, this.frameWidth, this.frameHeight,
+                    this.x - this.frameWidth / 2,
+                    this.y - this.frameHeight / 2,
+                    this.frameWidth,
+                    this.frameHeight
+                );
+            }
+        }
+
+
+        class CollisionManager {
+            constructor(bullets, roids, player) {
+                this.bullets = bullets;
+                this.roids = roids;
+                this.player = player;
+                this.gameOver = false;
+                this.roidsHit = [];
+            }
+
+            isCollision(self, other) {
+                const dx = self.x - other.x;
+                const dy = self.y - other.y;
+                const distance = Math.hypot(dx, dy);
+                return distance < (self.hitRadius + other.hitRadius);
+            }
+
+            update() {
+                this.roidsHit = [];
+                for (let roid of this.roids) {
+                    // Player collision
+                    if (!this.player.invincible) {
+                        if (this.isCollision(this.player, roid)) {
+                            return this.handleGameOver();
+                        } else {
+                            this.gameOver = false;
+                        }
+                    // Bullet collision
+                    } 
+                    
+                    for (let i = this.bullets.length - 1; i >= 0; i--) {
+                        if (this.isCollision(this.bullets[i], roid)) {
+                            // Remove bullet
+                            this.bullets.splice(i, 1);
+                            // Handle roid hit
+                            this.handleRoidHit(roid);
+                            break;
+                        }
+                    }
+                
+                }
+                return;
+            }
+
+            handleGameOver() {
+                this.gameOver = true;
+            }
+
+            handleRoidHit(roid) {
+                // add to list of roids hit this frame
+                this.roidsHit.push(roid);
+            }
+
+        }
+
+        // =============================
+        // Key listener
+        // =============================
+        const keys = {};
+        window.addEventListener("keydown", e => keys[e.code] = true);
+        window.addEventListener("keyup", e => keys[e.code] = false);
+
+        // =============================
+        // GameLoop class
+        // =============================
+        class GameLoop {
+            constructor() {
+                // Initialize classes
+                this.background = new Background();
+                this.player = new Player(canvas.width/2, canvas.height/2);
+                this.soundManager = new SoundManager();
+                this.startScreen = new StartScreen();
+
+                // load sounds
+                // soundManager.loadSound('name', '{% static "path\to\shoot.wav" %}');
+                this.soundManager.loadSound('thrust', '{% static "Starfighter Files/Audio/thrustModified.wav" %}');
+                this.soundManager.loadSound('explosion', '{% static "Starfighter Files/Audio/Explosion.wav" %}');
+                this.soundManager.loadSound('shoot', '{% static "Starfighter Files/Audio/Laser_Shoot.wav" %}');
+
+                // Game state
+                this.explosions = [];
+                this.points = 0;
+                this.playerLives = 3;
+                this.bullets = [];
+                this.roids = [];
+                this.gameStarted = false
+                this.currentWave = 0;
+                this.roidsDestroyed = 0;
+                this.invincDur = 0; // seconds of invincibility after respawn
+                this.collisionManager = new CollisionManager(this.bullets, this.roids, this.player);
+
+                // Timing
+                this.lastTime = performance.now();
+                this.lastSpaceBar = false;
+
+                this.setupStartHandlers();
+            }
+
+            handleRespawn() {
+                // Reset player position and velocity
+                this.player.x = canvas.width / 2;
+                this.player.y = canvas.height / 2;
+                this.player.vx = 0;
+                this.player.vy = 0;
+
+                // Clear bullets
+                this.bullets = [];
+                this.collisionManager.bullets = this.bullets;
+            }
+
+            setupStartHandlers() {
+                const startGame = () => {
+                    if (!this.gameStarted) {
+                        this.gameStarted = true;
+                        this.startScreen.hide();
+                        this.startNewWave()
+                        this.soundManager.playMusic('{% static "Starfighter Files/Music/asteroids-383043.mp3" %}');
+                    }
+                };
+
+                canvas.addEventListener('click', startGame);
+                window.addEventListener('keydown', startGame);
+            }
+
+            startNewWave() {
+                // Clear wave variables
+                this.waveInProgress = false;
+                this.currentWave++;
+                this.roids = [];
+                this.roidsDestroyed = 0;
+
+                // Calculate number of roids to spawn
+                const roidCount = Math.floor(INIT_ROIDS * Math.pow(1.5, this.currentWave - 1));
+
+                console.log(`Starting wave ${this.currentWave} with ${roidCount} asteroids`);
+
+                for (let i = 0; i<roidCount; i++) {
+                    if (this.roids.length < MAX_ROIDS) {
+                        this.spawnRoid('large');
+                    } else {
+                        console.log("Max roids reached, not spawning more this wave");
+                        break;
+                    }
+                }
+            }
+
+            spawnRoid(size) {
+                // Find rand posiiton away from player
+                let x, y;
+                const minDistFromPlayer = 150;
+
+                do {
+                    x = Math.random() * canvas.width;
+                    y = Math.random() * canvas.height;
+                } while (Math.hypot(x - this.player.x, y - this.player.y) < minDistFromPlayer);
+
+                // Random Velocity
+                const speed = ROID_MIN_V + Math.random() * (ROID_MAX_V - ROID_MIN_V);
+                const angle = Math.random() * Math.PI * 2;
+
+                // Random Spin
+                const w = (Math.random() * (ROID_MAX_W - ROID_MIN_W) + ROID_MIN_W) * (Math.random() > 0.5 ? 1 : -1);
+                
+                // Create roid
+                const roid = new Roid(size, x, y, angle, speed, w, this.player.hitboxActive);
+                this.roids.push(roid);
+            }
+
+            checkWaveComplete() {
+                if (this.roids.length === 0 && this.gameStarted && !this.waveInProgress) {
+                    this.waveInProgress = true;
+                    console.log(`Wave ${this.currentWave} complete! Starting next wave ...`);
+                    setTimeout(() => {
+                        if (!this.gameStarted) {
+                            this.waveInProgress = false;
+                            return;
+                        }
+                        this.startNewWave();
+                    }, 1000);
+                }
+            }
+
+            updateRoids(dt) {
+                for (let i = this.roids.length - 1; i >= 0; i--) {
+                    this.roids[i].update(dt);
+                }
+            }
+
+            drawRoids() {
+                for (let roid of this.roids) {
+                    roid.draw();
+                }
+            }
+
+            drawWaveInfo() {
+                ctx.fillStyle = "white";
+                ctx.font = "16px Arial";
+                ctx.textAlign = "left";
+                ctx.fillText(`Wave: ${this.currentWave} | Asteroids: ${this.roids.length}`, 10, 30);
+            }
+
+            draw = (currentTime) => {                
+                // Time
+                const dt = (currentTime - this.lastTime) / 1000; // seconds
+                this.lastTime = currentTime;
+                if (this.invincDur > 0) {
+                    this.invincDur = Math.max(0, this.invincDur - dt);
+                    this.player.invincible = true;
+                } else {
+                    this.player.invincible = false;
+                }
+
+                // Clear
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+                // Start Screen
+                if (!this.gameStarted) {
+                    this.startScreen.draw();
+                    requestAnimationFrame(this.draw);
+                    return;
+                }
+
+                // Draw background layers
+                this.background.update(dt);
+                this.background.draw();
+
+                // Check for game over
+                this.collisionManager.update();
+                if (this.collisionManager.gameOver && !this.player.invincible && !(this.playerLives > 1)) {
+                    this.handleGameOver();
+                } else if (this.collisionManager.gameOver && !this.player.invincible && (this.playerLives > 1)) {
+                    this.playerLives--;
+                    this.invincDur = 3; // seconds of invincibility
+                    this.handleRespawn();
+                    this.collisionManager.gameOver = false;
+                }
+                for (let roid of this.collisionManager.roidsHit) {
+                    this.soundManager.playSound('explosion');
+                    this.spawnExplosion(roid.x, roid.y);
+                    this.points += roid.points;
+                    this.handleRoidHit(roid);
+                }
+                this.roids = this.roids.filter(roid => !this.collisionManager.roidsHit.includes(roid));
+                this.bullets = this.collisionManager.bullets;
+
+                // Hnadle player drawing
+                this.player.update(keys, dt, this.soundManager);
+                this.player.draw();
+
+                // Bullet Firing
+                if (keys["Space"] && !this.lastSpaceBar) {
+                    // Spawn bullet at player
+                    const bullet = new Bullet(this.player.x, this.player.y, this.player.angle, this.player.hitboxActive);
+                    this.bullets.push(bullet);
+                    this.soundManager.playSound('shoot');
+                }
+
+                this.lastSpaceBar = keys["Space"];
+
+                // Draw bullets
+                for (let i = this.bullets.length -1; i>= 0; i--) {
+                    this.bullets[i].update(dt);
+                    this.bullets[i].draw();
+
+                    // Get rid of expired bullets
+                    if (this.bullets[i].dur <= 0) {
+                        this.bullets.splice(i, 1);
+                    }
+                }
+
+                // Roiods
+                this.updateRoids(dt);
+                this.drawRoids();
+
+                // Explqosions
+                this.explosions = this.explosions.filter(e => !e.done);
+                for (let exp of this.explosions) {
+                    exp.update(dt);
+                    exp.draw(ctx);
+                }
+
+                // Check Wave complete
+                this.checkWaveComplete();
+                this.drawWaveInfo();
+
+                // Update Collision Manager
+                this.collisionManager.bullets = this.bullets;
+                this.collisionManager.roids = this.roids;
+                this.collisionManager.player = this.player;
+
+                requestAnimationFrame(this.draw);
+            }
+
+            spawnExplosion(x, y) {
+                const frameWidth = 64;
+                const frameHeight = 64;
+                const frameCount = 20;
+                const frameTime = 0.04;
+                const columns = 6;
+                const src = "{% static 'Starfighter Files/sprites/FX/explosion/explosion-sheet.png' %}";
+                const exp = new Explosion(x, y, frameWidth, frameHeight, frameCount, frameTime, src, columns);
+                this.explosions.push(exp);
+            }
+
+
+            handleGameOver() {
+                console.log("Game Over!");
+                this.soundManager.stopAllLoopingSounds();
+                this.soundManager.stopMusic();
+                this.gameStarted = false;
+                this.startScreen.visible = true;
+                this.currentWave = 0;
+                this.points = 0;
+                this.playerLives = 3;
+                this.bullets = [];
+                this.roids = [];
+                this.collisionManager.gameOver = false;
+                this.waveInProgress = false;
+            }
+
+            handleRoidHit(roid) {
+                // Spawn smaller roids if applicable
+                if (roid.roidSize === 'large') {
+                    this.splitRoid('large', roid.x, roid.y);
+                } else if (roid.roidSize === 'medium') {
+                    this.splitRoid('medium', roid.x, roid.y);
+                }
+            }
+
+            splitRoid(size, x, y) {
+                if (size === 'large') {
+                    for (let i = 0; i < 2; i++) {
+                        this.spawnRoidAt('medium', x, y);
+                    }
+                } else if (size === 'medium') {
+                    for (let i = 0; i < 2; i++) {
+                        this.spawnRoidAt('small', x, y);
+                    }
+                }
+            }
+
+            spawnRoidAt(size, x, y) {
+                // Random Velocity
+                const speed = ROID_MIN_V + Math.random() * (ROID_MAX_V - ROID_MIN_V);
+                const angle = Math.random() * Math.PI * 2;
+
+                // Random Spin
+                const w = (Math.random() * (ROID_MAX_W - ROID_MIN_W) + ROID_MIN_W) * (Math.random() > 0.5 ? 1 : -1);
+                
+                // Create roid
+                const roid = new Roid(size, x, y, angle, speed, w, this.player.hitboxActive);
+                this.roids.push(roid);
+            }
+        }
+
+        // =============================
+        // Start game
+        // =============================
+        const game = new GameLoop();
+        requestAnimationFrame(game.draw);
+    </script>
+</body>
+</html>
