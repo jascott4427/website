@@ -381,7 +381,7 @@
                 this.thrustSound = null;
 
                 // Load and process player asset
-                file2gradient(this, "{% static 'Starfighter Files/sprites/Ships/ship-a/ship-a1.png' %}");
+                file2gradient(this, "public/Starfighter Files/sprites/Ships/ship-a/ship-a1.png");
 
                 // Physics constants
                 this.acc = SHIP_ACC;       // pixels per second^2
@@ -475,7 +475,7 @@
                 this.vy = 0;
                 this.size = BULLET_SIZE;
 
-                file2gradient(this, "{% static 'Starfighter Files/sprites/FX/bullet/bullet1.png' %}");
+                file2gradient(this, "public/Starfighter Files/sprites/FX/bullet/bullet1.png");
             }
 
             update(dt) {
@@ -531,17 +531,17 @@
                 this.size = 0;
 
                 if (this.roidSize == 'large') {
-                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/big-c.png' %}");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/big-c.png");
                     this.hitRadius = ROIDS.large.hitRadius;
                     this.size = ROIDS.large.size;
                     this.points = ROIDS.large.points;
                 } else if (this.roidSize == 'medium') {
-                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/med-c.png' %}");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/med-c.png");
                     this.hitRadius = ROIDS.medium.hitRadius;
                     this.size = ROIDS.medium.size;
                     this.points = ROIDS.medium.points;
                 } else if (this.roidSize == 'small') {
-                    file2gradient(this, "{% static 'Starfighter Files/sprites/Asteroids/small-c.png' %}");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/small-c.png");
                     this.hitRadius = ROIDS.small.hitRadius;
                     this.size = ROIDS.small.size;
                     this.points = ROIDS.small.points;
@@ -699,9 +699,9 @@
 
                 // load sounds
                 // soundManager.loadSound('name', '{% static "path\to\shoot.wav" %}');
-                this.soundManager.loadSound('thrust', '{% static "Starfighter Files/Audio/thrustModified.wav" %}');
-                this.soundManager.loadSound('explosion', '{% static "Starfighter Files/Audio/Explosion.wav" %}');
-                this.soundManager.loadSound('shoot', '{% static "Starfighter Files/Audio/Laser_Shoot.wav" %}');
+                this.soundManager.loadSound('thrust', 'public/Starfighter Files/Audio/thrustModified.wav');
+                this.soundManager.loadSound('explosion', 'public/Starfighter Files/Audio/Explosion.wav');
+                this.soundManager.loadSound('shoot', 'public/Starfighter Files/Audio/Laser_Shoot.wav');
 
                 // Game state
                 this.explosions = [];
@@ -740,7 +740,7 @@
                         this.gameStarted = true;
                         this.startScreen.hide();
                         this.startNewWave()
-                        this.soundManager.playMusic('{% static "Starfighter Files/Music/asteroids-383043.mp3" %}');
+                        this.soundManager.playMusic('public/Starfighter Files/Music/asteroids-383043.mp3');
                     }
                 };
 
@@ -924,7 +924,7 @@
                 const frameCount = 20;
                 const frameTime = 0.04;
                 const columns = 6;
-                const src = "{% static 'Starfighter Files/sprites/FX/explosion/explosion-sheet.png' %}";
+                const src = "public/Starfighter Files/sprites/FX/explosion/explosion-sheet.png";
                 const exp = new Explosion(x, y, frameWidth, frameHeight, frameCount, frameTime, src, columns);
                 this.explosions.push(exp);
             }
