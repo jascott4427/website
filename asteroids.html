@@ -13,13 +13,212 @@
         canvas {
             display: block;
         }
+        /* Back button styles */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #2CFF05;
+            border: 2px solid #2CFF05;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(44, 255, 5, 0.2);
+        }
+
+        .color-settings {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #2CFF05;
+            padding: 15px;
+            z-index: 1000;
+            color: #2CFF05;
+            font-family: Arial, sans-serif;
+        }
+
+        .color-control {
+            margin-bottom: 10px;
+        }
+
+        .color-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .color-input-group input[type="color"] {
+            width: 30px;
+            height: 30px;
+        }
+
+        .color-input-group input[type="text"] {
+            background: black;
+            border: 1px solid #2CFF05;
+            color: #2CFF05;
+            padding: 5px;
+            width: 80px;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            background: black;
+            border: 1px solid #2CFF05;
+            color: #2CFF05;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .preset-btn:hover {
+            background: rgba(44, 255, 5, 0.2);
+        }
     </style>
 </head>
 <body>
-    {% load static %}
+    <!-- Back to Gamedev Button -->
+    <button class="back-button" onclick="goBackToGamedev()">← BACK TO GAMEDEV</button>
+
+    <!-- Color Settings Panel -->
+    <div class="color-settings" id="colorSettings">
+        <h3 style="margin: 0 0 10px 0; font-size: 14px;">COLOR SETTINGS</h3>
+        
+        <div class="color-control">
+            <label>Primary Color</label>
+            <div class="color-input-group">
+                <input type="color" id="primary-color" value="#2CFF05">
+                <input type="text" id="primary-color-text" value="#2CFF05">
+            </div>
+        </div>
+        
+        <div class="color-control">
+            <label>Background Color</label>
+            <div class="color-input-group">
+                <input type="color" id="bg-color" value="#000000">
+                <input type="text" id="bg-color-text" value="#000000">
+            </div>
+        </div>
+        
+        <div class="preset-buttons">
+            <button class="preset-btn" data-primary="#2CFF05" data-bg="#000000">Classic Green</button>
+            <button class="preset-btn" data-primary="#fbbf24" data-bg="#2a1a0a">Amber</button>
+            <button class="preset-btn" data-primary="#60a5fa" data-bg="#0a1a2a">Blue</button>
+            <button class="preset-btn" data-primary="#f87171" data-bg="#2a0a0a">Red</button>
+            <button class="preset-btn" data-primary="#c084fc" data-bg="#1a0a2a">Purple</button>
+        </div>
+        
+        <button style="margin-top: 10px; padding: 5px 10px; background: black; border: 1px solid #2CFF05; color: #2CFF05; cursor: pointer;" onclick="applyColors()">APPLY COLORS</button>
+    </div>
+    <!-- {% load static %} -->
     <canvas id="gameCanvas"></canvas>
 
     <script>
+        // =============================
+        // Color Management
+        // =============================
+        let CURRENT_PRIMARY = "#2CFF05";
+        let CURRENT_BACKGROUND = "#000000";
+
+        // Function to go back to gamedev page
+        function goBackToGamedev() {
+            window.location.href = 'gamedev.html';
+        }
+
+        // Function to apply color changes
+        function applyColors() {
+            const primaryColor = document.getElementById('primary-color').value;
+            const bgColor = document.getElementById('bg-color').value;
+            
+            CURRENT_PRIMARY = primaryColor;
+            CURRENT_BACKGROUND = bgColor;
+            
+            // Update the color inputs text fields
+            document.getElementById('primary-color-text').value = primaryColor;
+            document.getElementById('bg-color-text').value = bgColor;
+            
+            // Save to localStorage
+            localStorage.setItem('asteroidsPrimaryColor', CURRENT_PRIMARY);
+            localStorage.setItem('asteroidsBgColor', CURRENT_BACKGROUND);
+        }
+
+        // Initialize color settings
+        function initColorSettings() {
+            const primaryColorInput = document.getElementById('primary-color');
+            const primaryColorText = document.getElementById('primary-color-text');
+            const bgColorInput = document.getElementById('bg-color');
+            const bgColorText = document.getElementById('bg-color-text');
+            
+            // Load saved colors from localStorage or use defaults
+            const savedPrimary = localStorage.getItem('asteroidsPrimaryColor') || '#2CFF05';
+            const savedBg = localStorage.getItem('asteroidsBgColor') || '#000000';
+            
+            CURRENT_PRIMARY = savedPrimary;
+            CURRENT_BACKGROUND = savedBg;
+            
+            primaryColorInput.value = savedPrimary;
+            primaryColorText.value = savedPrimary;
+            bgColorInput.value = savedBg;
+            bgColorText.value = savedBg;
+            
+            // Sync color picker and text input
+            primaryColorInput.addEventListener('input', function() {
+                primaryColorText.value = this.value;
+            });
+            
+            primaryColorText.addEventListener('change', function() {
+                primaryColorInput.value = this.value;
+            });
+            
+            bgColorInput.addEventListener('input', function() {
+                bgColorText.value = this.value;
+            });
+            
+            bgColorText.addEventListener('change', function() {
+                bgColorInput.value = this.value;
+            });
+            
+            // Preset buttons
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const primary = this.getAttribute('data-primary');
+                    const bg = this.getAttribute('data-bg');
+                    
+                    primaryColorInput.value = primary;
+                    primaryColorText.value = primary;
+                    bgColorInput.value = bg;
+                    bgColorText.value = bg;
+                    
+                    applyColors();
+                });
+            });
+        }
+
+        function getPrimaryColor() {
+            return CURRENT_PRIMARY;
+        }
+
+        function getBackgroundColor() {
+            return CURRENT_BACKGROUND;
+        }
 
         // TODO: add animations for ships and bullets and invincibility
         // TODO: add explosion animations and fx
@@ -294,11 +493,11 @@
                 if (!this.visible) return;
 
                 // Semi-transparent overlay
-                ctx.fillStyle = DEFAULT_BACKGROUND;
+                ctx.fillStyle = getBackgroundColor();
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 // Title
-                ctx.fillStyle = DEFAULT_PRIMARY;
+                ctx.fillStyle = getPrimaryColor();
                 ctx.font = "48px Arial";
                 ctx.textAlign = "center";
                 ctx.fillText("ASTEROIDS", canvas.width/2, canvas.height/2 - 50);
@@ -307,6 +506,10 @@
                 ctx.font = "24px Arial";
                 ctx.fillText("Click or press any key to start", canvas.width/2, canvas.height/2 + 50);
                 ctx.fillText("Use Arrow Keys to move, Space to shoot", canvas.width/2, canvas.height/2 + 100);
+                
+                // Back instruction
+                ctx.font = "16px Arial";
+                ctx.fillText("Press ESC or click Back button to return to Gamedev", canvas.width/2, canvas.height/2 + 150);
             }
 
             hide() {
@@ -326,36 +529,29 @@
                         r: Math.random() * MAX_STAR_SIZE + 1,
                         alpha: Math.random() * 0.5 + 0.5,
                         targetAlpha: Math.random() * 0.5 + 0.5,
-                        flickerSpeed: 0.2 + Math.random() * 0.3  // how fast it sparkles
+                        flickerSpeed: 0.2 + Math.random() * 0.3
                     });
                 }
             }
 
             update(dt) {
                 for (let star of this.stars) {
-                    // Move alpha toward targetAlpha
                     const diff = star.targetAlpha - star.alpha;
-                    star.alpha += diff * star.flickerSpeed * dt * 60;  // scaled by framerate
+                    star.alpha += diff * star.flickerSpeed * dt * 60;
 
-                    // Once close enough, pick a new random target
                     if (Math.abs(diff) < 0.01) {
-                        star.targetAlpha = Math.random() * 0.5 + 0.5; // new sparkle intensity
+                        star.targetAlpha = Math.random() * 0.5 + 0.5;
                     }
                 }
             }
 
             draw() {
-                ctx.fillStyle = DEFAULT_BACKGROUND;
+                ctx.fillStyle = getBackgroundColor();
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 for (let star of this.stars) {
                     ctx.globalAlpha = star.alpha;
-
-                    // Optional color sparkle
-                    const hueShift = Math.random() * 20 - 10; // small hue variation
-                    const color = `hsl(${100 + hueShift}, 100%, 70%)`;
-
-                    ctx.fillStyle = color;
+                    ctx.fillStyle = getPrimaryColor();
                     ctx.beginPath();
                     ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
                     ctx.fill();
@@ -381,7 +577,7 @@
                 this.thrustSound = null;
 
                 // Load and process player asset
-                file2gradient(this, "public/Starfighter Files/sprites/Ships/ship-a/ship-a1.png");
+                file2gradient(this, "public/Starfighter Files/sprites/Ships/ship-a/ship-a1.png", getPrimaryColor(), getBackgroundColor());
 
                 // Physics constants
                 this.acc = SHIP_ACC;       // pixels per second^2
@@ -475,7 +671,7 @@
                 this.vy = 0;
                 this.size = BULLET_SIZE;
 
-                file2gradient(this, "public/Starfighter Files/sprites/FX/bullet/bullet1.png");
+                file2gradient(this, "public/Starfighter Files/sprites/FX/bullet/bullet1.png", getPrimaryColor(), getBackgroundColor());
             }
 
             update(dt) {
@@ -531,17 +727,17 @@
                 this.size = 0;
 
                 if (this.roidSize == 'large') {
-                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/big-c.png");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/big-c.png", getPrimaryColor(), getBackgroundColor());
                     this.hitRadius = ROIDS.large.hitRadius;
                     this.size = ROIDS.large.size;
                     this.points = ROIDS.large.points;
                 } else if (this.roidSize == 'medium') {
-                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/med-c.png");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/med-c.png", getPrimaryColor(), getBackgroundColor());
                     this.hitRadius = ROIDS.medium.hitRadius;
                     this.size = ROIDS.medium.size;
                     this.points = ROIDS.medium.points;
                 } else if (this.roidSize == 'small') {
-                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/small-c.png");
+                    file2gradient(this, "public/Starfighter Files/sprites/Asteroids/small-c.png", getPrimaryColor(), getBackgroundColor());
                     this.hitRadius = ROIDS.small.hitRadius;
                     this.size = ROIDS.small.size;
                     this.points = ROIDS.small.points;
@@ -718,6 +914,12 @@
                 // Timing
                 this.lastTime = performance.now();
                 this.lastSpaceBar = false;
+
+                window.addEventListener("keydown", e => {
+                    if (e.code === "Escape") {
+                        goBackToGamedev();
+                    }
+                });
 
                 this.setupStartHandlers();
             }
@@ -983,7 +1185,9 @@
         // =============================
         // Start game
         // =============================
+        initColorSettings();
         const game = new GameLoop();
+        window.gameLoop = game; // Make accessible for color updates
         requestAnimationFrame(game.draw);
     </script>
 </body>
