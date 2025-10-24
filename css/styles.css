@@ -864,6 +864,57 @@ h6 {
   box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
+/* Project Animation Styles */
+.project-animation {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.blender-animation {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border: 2px solid var(--pipboy-border-custom);
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+  transition: all 0.3s ease;
+}
+
+.blender-animation:hover {
+  box-shadow: 0 0 30px rgba(74, 222, 128, 0.5);
+  transform: scale(1.02);
+}
+
+.animation-caption {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Optional: Add scan lines over the video for Pip-Boy aesthetic */
+.blender-animation {
+  position: relative;
+}
+
+.blender-animation::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
